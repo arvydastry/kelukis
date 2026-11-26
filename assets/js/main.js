@@ -398,21 +398,18 @@
       cur.style.setProperty('--x', cx.toFixed(1) + 'px'); cur.style.setProperty('--y', cy.toFixed(1) + 'px');
     });
   }
-
+  /* ---------- kinetinė juosta: lėtas pastovus greitis, nuo slinkimo nepriklauso (tik transform, be išdėstymo perskaičiavimo) ---------- */
   /* ---------- kinetinė juosta: greitis ir lengvas pasvirimas pagal slinkimą (tik transform, be išdėstymo perskaičiavimo) ---------- */
   $$('[data-kin]').forEach(function (kin) {
     if (!MOTION) return;
-    var track = $('.kin__track', kin), p = 0, sk = 0, dir = 1, vis = false;
+    var track = $('.kin__track', kin), p = 0, vis = false;
     if (!track) return;
     new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }, { rootMargin: '100px 0px' }).observe(kin);
     gsap.ticker.add(function (t, dt) {
       if (!vis) return;
-      var v = lenis ? (lenis.velocity || 0) : 0, av = Math.min(Math.abs(v), 70);
-      if (av > 0.4) dir = v > 0 ? 1 : -1;
-      p += (0.00004 + av * 0.00003) * Math.min(dt, 50) * dir;
-      p = ((p % 1) + 1) % 1;
-      sk += (Math.max(-8, Math.min(8, -v * 0.16)) - sk) * 0.08;
-      track.style.transform = 'translate3d(' + (-p * 50).toFixed(4) + '%,0,0) skewX(' + sk.toFixed(2) + 'deg)';
+      // pastovus lėtas greitis: nuo slinkimo juosta nepriklauso (nei greitis, nei kryptis, nei pasvirimas)
+      p = (p + 0.000015 * Math.min(dt, 50)) % 1;
+      track.style.transform = 'translate3d(' + (-p * 50).toFixed(4) + '%,0,0)';
     });
   });
 

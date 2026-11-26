@@ -639,10 +639,6 @@ section[id],div[id],article[id]{scroll-margin-top:96px}
 .copy{display:grid;place-items:center;flex:none;width:30px;height:30px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:background .3s,transform .4s var(--ease)}
 .copy:hover{background:var(--red);transform:scale(1.1)}
 .copy .ic{width:14px;height:14px}
-.ftr__road{position:relative;height:38px;margin-top:6px;border-bottom:2px dashed rgba(255,255,255,.22);overflow:hidden}
-.ftr__road svg{position:absolute;bottom:2px;left:0;width:104px;height:auto;color:#fff;animation:drive 22s linear infinite}
-.ftr__road svg:nth-child(2){width:84px;opacity:.5;animation-duration:31s;animation-delay:-12s}
-@keyframes drive{from{transform:translateX(-140px)}to{transform:translateX(100vw)}}
 .ftr__word{margin-top:clamp(18px,2.6vw,40px);color:#fff}
 .ftr__word .logo{width:100%}
 .ftr__word .logo__l{transition:transform 1.3s var(--ease);transition-delay:calc(var(--li,0)*70ms)}
