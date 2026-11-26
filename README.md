@@ -46,7 +46,7 @@ Autovežių (automobilių pervežimo) veikla, kurią mini keli seni katalogai, n
 |---|---|
 | Spalvos | iš tikro logotipo: tamsiai mėlyna `#2B2767` (tekstui ir tamsioms sekcijoms `#16143A`) ir raudona `#E42024`, naudojama tik akcentams. Fonai pasteliniai: `#F4F5FB`, `#E8EAF6`, `#D7DAF3`, `#FBE6E4`. Fonuose nėra tekstūrų |
 | Šriftas | **Archivo** (kintamas storis ir plotis, statmenas ir kursyvas, po vieną `woff2` failą, lietuviški rašmenys viename faile). Antraštės platesnės (`font-stretch` 113–125 %), akcentiniai žodžiai kursyvu, kaip logotipo raidės |
-| Logotipas | žodinis ženklas surinktas „Archivo Italic“ ir paverstas kreivėmis su horizontaliais „greičio“ pjūviais, raudonas smaigalys su keliu perpieštas pagal senojo puslapio vaizdą (`tools/brand.py`). **Prieš paleidimą reikia originalaus vektorinio logotipo.** |
+| Logotipas | žodinis ženklas surinktas „Archivo Italic“ ir paverstas kreivėmis su horizontaliais „greičio“ pjūviais, grafinis ženklas (raudonas kampas, mėlynas trikampis ir apatinė dalis su plonais kontūrais) yra originalus „Kelukio“ ženklas, perbraižytas vektoriumi pagal senojo puslapio vaizdą (`tools/brand.py`). **Prieš paleidimą reikia originalaus vektorinio logotipo.** |
 | Forma | dideli apvalinti kampai (22–44 px), piliulės mygtukai su besisukančia rodykle, stiklo kortelės ant video |
 | Hero | pilno ekrano video (autostrada prieblandoje iš drono), permatoma antraštė, greitos užklausos kortelė |
 

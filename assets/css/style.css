@@ -420,8 +420,8 @@ section[id],div[id],article[id]{scroll-margin-top:96px}
 .js .rig:not(.is-in) .tr-dim{stroke-dashoffset:1}
 .tr-speed path{fill:none;stroke:var(--lilac);stroke-width:5;stroke-linecap:round;animation:speed 1.5s linear infinite}
 @keyframes speed{0%{transform:translateX(40px);opacity:0}30%{opacity:1}100%{transform:translateX(-30px);opacity:0}}
-.kmark--navy{fill:var(--navy)}
-.kmark--white{fill:#fff}
+.kmark--navy{fill:var(--navy);color:var(--navy)}
+.kmark--white{fill:#fff;color:#fff}
 .tr-wordmark{fill:var(--navy)}
 .tr-wordmark--w{fill:#fff}
 
