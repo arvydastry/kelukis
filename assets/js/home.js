@@ -32,7 +32,8 @@
       if (KL.fine) {                                   // gylio sluoksniai pagal pelę
         var mx = 0, my = 0, tx = 0, ty = 0;
         hero.addEventListener('pointermove', function (e) {
-          if (!KL.realMove()) return;
+          // slenkant sluoksniai pagal pelę nejudinami: ratuką sukanti ranka pelę vis kiek pajudina, o tekstas tada dreba
+          if (!KL.realMove() || performance.now() - KL.lastScroll < 250) return;
           var r = hero.getBoundingClientRect();
           tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1;
         });
@@ -43,18 +44,12 @@
         });
       }
       var whole = function () { return { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }; };
-      var fade = function () { return { trigger: hero, start: '16% top', end: '78% top', scrub: true }; };
       gsap.to('.hero__stage', { yPercent: 24, ease: 'none', scrollTrigger: whole() });
       // --zoom rašomas ant paties medijos sluoksnio (ne ant viso hero), kad kas kadrą nereikėtų perskaičiuoti viso hero stilių
       gsap.fromTo('.hero__media', { '--zoom': 1 }, { '--zoom': 1.16, ease: 'none', scrollTrigger: whole() });
-      gsap.to('.hero__in', { y: -70, ease: 'none', scrollTrigger: fade() });
-      // Išblukimas dedamas ant atskirų elementų, ne ant bendro .hero__in konteinerio: konteineris su opacity < 1
-      // atkirstų stiklo elementus (backdrop-filter: ženklelį ir užklausos kortelę) nuo video už jų, ir suliejimas staiga
-      // dingtų vos pradėjus slinkti. .hero__cta gali išblukti visas, nes jame stiklo elementų nėra.
-      gsap.fromTo($$('.hero__chip, .hero__title, .hero__lead, .hero__cta, .hero__card', hero), { opacity: 1 },
-        { opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: fade() });
-      gsap.fromTo($$('.hero__foot > *', hero), { opacity: 1 },
-        { opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: { trigger: hero, start: '4% top', end: '26% top', scrub: true } });
+      // Hero tekstas slenkant NEanimuojamas (nei poslinkis, nei išblukimas): jis tiesiog nuslenka kartu su puslapiu.
+      // Kas kadrą keičiamas teksto poslinkis trupmeniniais pikseliais ir skaidrumas versdavo naršyklę raides perpiešti
+      // vis kitaip, todėl slenkant jos mirgėjo. Gylį kuria fonas: video juda lėčiau (.hero__stage) ir artėja (--zoom).
       ST.create({ trigger: hero, start: 'top top', end: 'bottom top',
         onLeave: function () { if (hv && !hv.paused) hv.pause(); },
         onEnterBack: function () { if (hv && PLAY && hv.dataset.user !== 'paused') play(hv); } });

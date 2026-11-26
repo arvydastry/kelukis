@@ -71,7 +71,8 @@ Autovežių (automobilių pervežimo) veikla, kurią mini keli seni katalogai, n
 
 Šios taisyklės atsirado pataisius slinkimo trikdžius; perkeliant į XStore jų verta laikytis ir child temos kode.
 
-- **Stiklo elementai (`backdrop-filter`) negali turėti tėvo su `opacity` < 1, `filter`, `clip-path` ar `mask`:** toks tėvas atkerta juos nuo fono ir suliejimas staiga dingsta. Todėl hero turinys išblunka atskirais elementais, o ne visu konteineriu.
+- **Stiklo elementai (`backdrop-filter`) negali turėti tėvo su `opacity` < 1, `filter`, `clip-path` ar `mask`:** toks tėvas atkerta juos nuo fono ir suliejimas staiga dingsta. Todėl konteinerio, kuriame yra stiklo elementų, blukinti negalima.
+- **Tekstas slenkant neanimuojamas kas kadrą** (nei poslinkis trupmeniniais pikseliais, nei skaidrumas): naršyklė raides tada perpiešia vis kitaip ir jos mirga. Hero tekstas tiesiog nuslenka kartu su puslapiu, o gylį kuria fonas (video juda lėčiau ir artėja). Slenkant nejudinami ir sluoksniai pagal pelę.
 - **Užvedimo efektai, kuriuos valdo JS, reaguoja tik į tikrą pelės judesį** (`pointermove` ir `KL.realMove()`), ne į `pointerenter` ar `:hover`: slenkant puslapį po nejudančia pele naršyklė vis tiek siunčia „užvedimo“ įvykius, ir skydai, meniu ar žemėlapis keistųsi patys.
 - **Elementas, kurio `transform` kas kadrą rašo GSAP, negali turėti CSS `transition` ant `transform`.**
 - **Antraščių eilučių kaukės neturi `padding` ir neigiamų paraščių** (kirpimo riba praplečiama per `overflow-clip-margin`): kitaip suskaidyta antraštė būna kito aukščio ir turinys žemiau šokteli. Eilutės po animacijos lieka savo sluoksnyje (`force3D`), o paprastas tekstas grąžinamas tik pasikeitus lango pločiui.
