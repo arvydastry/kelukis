@@ -1,0 +1,111 @@
+<svg class="rig__svg" viewBox="-36 62 1216 342" role="img" aria-label="Vilkikas su puspriekabe, vaizdas iš šono" data-rig-svg>
+  <defs>
+    <g id="whl">
+      <circle class="tr-tyre" r="31"/>
+      <circle class="tr-rim" r="19"/>
+      <circle class="tr-hub" r="6.5"/>
+      <g class="tr-ink"><circle cx="0" cy="-12.5" r="2.1"/><circle cx="11.9" cy="-3.9" r="2.1"/><circle cx="7.3" cy="10.1" r="2.1"/><circle cx="-7.3" cy="10.1" r="2.1"/><circle cx="-11.9" cy="-3.9" r="2.1"/></g>
+      <path class="tr-ink" d="M-1.4-19h2.8v5h-2.8z"/>
+    </g>
+    <g id="kmark"><path fill="#E42024" d="M2 44 25.5 3.5h7L44.5 44h-9.3L29 19.5 13.2 44z"/><path class="kmark__road" d="M18.5 44l8.9-14.2 3.9 14.2z"/></g>
+  </defs>
+
+  <ellipse class="tr-shadow" cx="600" cy="373" rx="530" ry="9"/>
+  <path class="tr-ground" d="M-36 371.5H1180"/>
+
+  <g class="tr-speed" aria-hidden="true">
+    <path d="M-14 168h46M-28 204h62M-8 240h40"/>
+  </g>
+
+  <g class="tr-rig" data-rig-truck>
+    <!-- puspriekabės: tentinė -->
+    <g class="tr-trailer is-on" data-trailer="tent">
+      <rect class="tr-body" x="103" y="130" width="816" height="170" rx="6"/>
+      <path class="tr-thin" d="M137 142v144M171 142v144M205 142v144M239 142v144M273 142v144M307 142v144M341 142v144M375 142v144M409 142v144M443 142v144M477 142v144M511 142v144M545 142v144M579 142v144M613 142v144M647 142v144M681 142v144M715 142v144M749 142v144M783 142v144M817 142v144M851 142v144M885 142v144"/>
+      <rect class="tr-mist" x="103" y="130" width="816" height="11" rx="5"/>
+      <rect class="tr-mist" x="103" y="130" width="12" height="170" rx="4"/>
+      <rect class="tr-mist" x="905" y="130" width="14" height="170" rx="4"/>
+      <path class="tr-line" d="M124 283h772" stroke-dasharray="5 29"/>
+      <rect class="tr-navy" x="103" y="290" width="816" height="14" rx="3"/>
+      <use href="#kmark" transform="translate(318 181) scale(1.32)" class="kmark--navy"/>
+      <text class="tr-wordmark" x="388" y="240" font-size="66" font-style="italic" font-weight="800" style="font-stretch:125%;letter-spacing:-.02em">KELUKIS</text>
+      <g class="tr-dims">
+        <path class="tr-dim" pathLength="1" d="M103 104H919M103 96v16M919 96v16"/>
+        <text class="tr-dimt" x="511" y="92">13,6 m</text>
+        <path class="tr-dim" pathLength="1" d="M76 141V289M68 141h16M68 289h16"/>
+        <text class="tr-dimt" x="60" y="220" transform="rotate(-90 60 220)">2,7 m</text>
+      </g>
+    </g>
+
+    <!-- šaldytuvas -->
+    <g class="tr-trailer" data-trailer="reefer">
+      <rect class="tr-body" x="103" y="122" width="806" height="178" rx="9"/>
+      <path class="tr-thin" d="M237 132v158M371 132v158M505 132v158M639 132v158M773 132v158"/>
+      <rect class="tr-mist" x="103" y="122" width="11" height="178" rx="4"/>
+      <rect class="tr-mist" x="909" y="138" width="26" height="98" rx="6"/>
+      <path class="tr-thin" d="M915 152h14M915 162h14M915 172h14M915 182h14M915 192h14" style="opacity:.6"/>
+      <circle class="tr-red" cx="922" cy="216" r="4"/>
+      <rect class="tr-navy" x="103" y="290" width="806" height="14" rx="3"/>
+      <rect class="tr-mist" x="556" y="308" width="74" height="26" rx="8"/>
+      <use href="#i-snowflake" x="150" y="168" width="84" height="84" class="tr-navy"/>
+      <use href="#kmark" transform="translate(318 181) scale(1.32)" class="kmark--navy"/>
+      <text class="tr-wordmark" x="388" y="240" font-size="66" font-style="italic" font-weight="800" style="font-stretch:125%;letter-spacing:-.02em">KELUKIS</text>
+      <g class="tr-dims">
+        <path class="tr-dim" pathLength="1" d="M103 96H909M103 88v16M909 88v16"/>
+        <text class="tr-dimt" x="506" y="84">13,4 m</text>
+        <path class="tr-dim" pathLength="1" d="M76 132V290M68 132h16M68 290h16"/>
+        <text class="tr-dimt" x="60" y="216" transform="rotate(-90 60 216)">2,6 m</text>
+      </g>
+    </g>
+
+    <!-- konteineris ant važiuoklės -->
+    <g class="tr-trailer" data-trailer="box">
+      <rect class="tr-navy" x="103" y="292" width="816" height="12" rx="3"/>
+      <rect x="150" y="118" width="731" height="174" rx="3" fill="#2B2767" stroke="#16143A" stroke-width="2.2"/>
+      <path d="M176 126v158M190 126v158M204 126v158M218 126v158M232 126v158M246 126v158M260 126v158M274 126v158M288 126v158M302 126v158M316 126v158M330 126v158M344 126v158M358 126v158M372 126v158M386 126v158M400 126v158M414 126v158M428 126v158M442 126v158M456 126v158M470 126v158M484 126v158M498 126v158M512 126v158M526 126v158M540 126v158M554 126v158M568 126v158M582 126v158M596 126v158M610 126v158M624 126v158M638 126v158M652 126v158M666 126v158M680 126v158M694 126v158M708 126v158M722 126v158M736 126v158M750 126v158M764 126v158M778 126v158M792 126v158M806 126v158M820 126v158M834 126v158M848 126v158M862 126v158" fill="none" stroke="#fff" stroke-width="1.1" opacity=".16"/>
+      <rect x="150" y="118" width="14" height="174" fill="#3F3AA0" stroke="#16143A" stroke-width="2.2"/>
+      <path d="M150 118h12v10h-12zM150 282h12v10h-12zM869 118h12v10h-12zM869 282h12v10h-12z" fill="#E8EAF6" stroke="#16143A" stroke-width="1.6"/>
+      <rect x="300" y="166" width="430" height="92" rx="6" fill="#2B2767"/>
+      <use href="#kmark" transform="translate(318 181) scale(1.32)" class="kmark--white"/>
+      <text class="tr-wordmark tr-wordmark--w" x="388" y="240" font-size="66" font-style="italic" font-weight="800" style="font-stretch:125%;letter-spacing:-.02em">KELUKIS</text>
+      <path class="tr-ink" d="M196 292h16v8h-16zM820 292h16v8h-16z"/>
+      <g class="tr-dims">
+        <path class="tr-dim" pathLength="1" d="M150 92H881M150 84v16M881 84v16"/>
+        <text class="tr-dimt" x="515" y="80">40′ HC · 12,2 m</text>
+        <path class="tr-dim" pathLength="1" d="M124 126V284M116 126h16M116 284h16"/>
+        <text class="tr-dimt" x="108" y="210" transform="rotate(-90 108 210)">2,9 m</text>
+      </g>
+    </g>
+
+    <!-- puspriekabės važiuoklė -->
+    <path class="tr-ink" d="M106 318h42v8h-42z"/>
+    <rect class="tr-red" x="103" y="296" width="7" height="12" rx="2"/>
+    <rect class="tr-mist" x="492" y="310" width="54" height="26" rx="6"/>
+    <path class="tr-ink" d="M686 304h10v44h-10zM677 348h28v6h-28z"/>
+    <path class="tr-line" d="M246 318a40 40 0 0 1 72 0M325 318a40 40 0 0 1 72 0M404 318a40 40 0 0 1 72 0"/>
+    <g class="tr-wheel"><use href="#whl" x="282" y="339"/></g>
+    <g class="tr-wheel"><use href="#whl" x="361" y="339"/></g>
+    <g class="tr-wheel"><use href="#whl" x="440" y="339"/></g>
+
+    <!-- vilkikas -->
+    <rect class="tr-ink" x="742" y="306" width="330" height="13" rx="3"/>
+    <rect class="tr-ink" x="786" y="297" width="74" height="9" rx="3"/>
+    <rect class="tr-mist" x="842" y="322" width="112" height="30" rx="11"/>
+    <path class="tr-line" d="M753 318a40 40 0 0 1 74 0"/>
+    <path class="tr-thin" d="M956 236q-18 26-36 4" style="opacity:.7"/>
+    <rect class="tr-mist" x="944" y="146" width="16" height="166" rx="4"/>
+    <path class="tr-body" d="M958 322V140q0-12 12-12h70q34 2 44 44l12 90v60z"/>
+    <rect class="tr-red" x="958" y="292" width="138" height="9"/>
+    <path class="tr-glass" d="M1030 180h44q6 0 8 6l8 58h-60z"/>
+    <path class="tr-thin" d="M1022 172v146M958 268h64" style="opacity:.5"/>
+    <rect class="tr-ink" x="1030" y="262" width="17" height="5" rx="2.5"/>
+    <use href="#kmark" transform="translate(966 196) scale(.6)" class="kmark--navy"/>
+    <text class="tr-wordmark" x="966" y="246" font-size="12.5" font-style="italic" font-weight="800" style="font-stretch:125%">KELUKIS</text>
+    <path class="tr-body" d="M970 324a42 42 0 0 1 84 0z"/>
+    <path class="tr-ink" d="M1048 322h54v22q0 8-8 8h-46z"/>
+    <rect x="1085" y="302" width="12" height="13" rx="3" fill="#FFD98A" stroke="#16143A" stroke-width="1.6"/>
+    <rect class="tr-ink" x="1091" y="186" width="10" height="36" rx="5"/>
+    <g class="tr-wheel"><use href="#whl" x="790" y="339"/></g>
+    <g class="tr-wheel"><use href="#whl" x="1012" y="339"/></g>
+  </g>
+</svg>

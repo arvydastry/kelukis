@@ -1,0 +1,78 @@
+<!--meta {
+  "title": "Kontaktai | Kelukis",
+  "description": "UAB „Kelukis“ kontaktai: Senasis Ukmergės kel. 4, Užubalių k., Vilniaus r. Tel. +370 5 273 6827, el. paštas kelukis@kelukis.lt.",
+  "page": "kontaktai",
+  "bodyclass": "page-light",
+  "nav_kont": "is-current"
+} -->
+
+<!-- ============ PUSLAPIO HERO ============  XStore: Page Heading + Breadcrumbs -->
+<section class="phero phero--light">
+  <div class="phero__in wrap">
+    <div>
+      <ol class="crumbs" data-rv="fade"><li><a href="index.html">Pradžia</a></li><li aria-current="page">Kontaktai</li></ol>
+      <h1 class="h1" data-split data-delay=".1">Pasikalbėkime apie jūsų <em>krovinį</em></h1>
+    </div>
+    <p class="lead" data-rv style="--d:.3s">Atsakome darbo dienomis nuo 8.00 iki 17.00. Skubiu klausimu greičiausia paskambinti.</p>
+  </div>
+</section>
+
+<!-- ============ KONTAKTŲ KORTELĖS ============  XStore: Icon Box -->
+<section class="wrap" aria-label="Kontaktai">
+  <div class="kcards">
+    <a class="kcard" href="tel:{{c_tel_href}}" data-rv>
+      {{i:phone k}}<span class="go">{{i:arrow-up-right}}</span>
+      <div><small>Biuras</small><b class="num">{{c_tel}}</b></div>
+    </a>
+    <a class="kcard" href="tel:{{c_mob_href}}" data-rv style="--d:.08s">
+      {{i:headset k}}<span class="go">{{i:arrow-up-right}}</span>
+      <div><small>Mobilusis</small><b class="num">{{c_mob}}</b></div>
+    </a>
+    <a class="kcard" href="mailto:{{c_mail_road}}" data-rv style="--d:.16s">
+      {{i:truck k}}<span class="go">{{i:arrow-up-right}}</span>
+      <div><small>Krovinių užklausos</small><b>{{c_mail_road}}</b></div>
+    </a>
+    <a class="kcard" href="mailto:{{c_mail}}" data-rv style="--d:.24s">
+      {{i:envelope-simple k}}<span class="go">{{i:arrow-up-right}}</span>
+      <div><small>Bendra informacija</small><b>{{c_mail}}</b></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FORMA IR INFORMACIJA ============  Contact Form 7 + Icon List + nuoroda į žemėlapį -->
+<section class="sec wrap" id="uzklausa">
+  <div class="kgrid">
+    <div class="kform" data-rv>
+      <p class="eyebrow">Užklausa</p>
+      <h2 class="h2">Papasakokite apie krovinį</h2>
+      <p>Kuo tiksliau aprašysite krovinį ir maršrutą, tuo greičiau pateiksime pasiūlymą.</p>
+      {{> qform}}
+    </div>
+    <div class="kside">
+      <a class="kmap" href="{{c_maps}}" target="_blank" rel="noopener" data-rv data-cursor="Maršrutas">
+        <img src="assets/img/photos/trailers-top-2-sm.webp" alt="" loading="lazy" decoding="async">
+        <div class="kmap__in">
+          <div><b>{{c_addr_short}}</b><span>LT-14302 Vilniaus r. · Atidaryti žemėlapyje</span></div>
+          <span class="go">{{i:arrow-up-right}}</span>
+        </div>
+      </a>
+      <div class="kbox kbox--ink on-dark" data-rv style="--d:.08s">
+        <h3 class="h3">Darbo laikas</h3>
+        <ul class="hours">
+          <li><span>Pirmadienis – penktadienis</span><b class="num">8.00–17.00</b></li>
+          <li class="off"><span>Šeštadienis, sekmadienis</span><b>nedirbame</b></li>
+        </ul>
+      </div>
+      <div class="kbox" data-rv style="--d:.16s">
+        <h3 class="h3">Rekvizitai</h3>
+        <div class="req">
+          <div class="req__r"><span>Įmonė</span><b>{{c_name}}</b></div>
+          <div class="req__r"><span>Įmonės kodas</span><b class="num">{{c_code}}</b><button class="copy" type="button" data-copy="{{c_code}}" aria-label="Kopijuoti įmonės kodą">{{i:copy}}</button></div>
+          <div class="req__r"><span>PVM kodas</span><b class="num">{{c_vat}}</b><button class="copy" type="button" data-copy="{{c_vat}}" aria-label="Kopijuoti PVM kodą">{{i:copy}}</button></div>
+          <div class="req__r"><span>Registracijos adresas</span><b>{{c_reg}}</b></div>
+          <div class="req__r"><span>Vadovas</span><b>Valerijus Asejevas</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+<!-- Mobilus meniu. XStore: Mobile Menu (off-canvas) -->
+<div class="mnav on-dark" id="mnav" aria-hidden="true" data-mnav>
+  <ul class="mnav__list">
+    <li><a href="paslaugos.html" style="--i:0">Paslaugos {{i:arrow-up-right}}</a></li>
+    <li><a href="index.html#autoparkas" style="--i:1">Autoparkas {{i:arrow-up-right}}</a></li>
+    <li><a href="index.html#apie" style="--i:2">Apie mus {{i:arrow-up-right}}</a></li>
+    <li><a href="karjera.html" style="--i:3">Karjera {{i:arrow-up-right}}</a></li>
+    <li><a href="kontaktai.html" style="--i:4">Kontaktai {{i:arrow-up-right}}</a></li>
+  </ul>
+  <div class="mnav__foot">
+    <button class="btn btn--red btn--block" type="button" data-quote><span class="btn__t" data-t="Gauti pasiūlymą"><span>Gauti pasiūlymą</span></span><span class="btn__i">{{i:arrow-up-right}}</span></button>
+    <a class="t" href="tel:{{c_tel_href}}">{{c_tel}}</a>
+    <a href="mailto:{{c_mail}}">{{c_mail}}</a>
+    <div class="mnav__langs"><span>LT</span><a href="#" data-demo="lang">EN</a><a href="#" data-demo="lang">DE</a><a href="#" data-demo="lang">RU</a></div>
+  </div>
+</div>
+
+<!-- Užklausos skydelis. XStore: Off-Canvas / Modal Popup su Contact Form 7 -->
+<div class="qd" id="qd" role="dialog" aria-modal="true" aria-labelledby="qd-title" aria-hidden="true" data-qd>
+  <div class="qd__dim" data-qd-close></div>
+  <div class="qd__panel">
+    <div class="qd__head">
+      <div>
+        <p class="eyebrow">Užklausa</p>
+        <h2 id="qd-title">Papasakokite apie krovinį</h2>
+      </div>
+      <button class="qd__x" type="button" aria-label="Uždaryti" data-qd-close>{{i:x}}</button>
+    </div>
+    <div class="qd__body" data-lenis-prevent>
+      {{> qform}}
+      <p class="qd__alt"><a href="tel:{{c_tel_href}}">{{i:phone}} {{c_tel}}</a><a href="mailto:{{c_mail_road}}">{{i:envelope-simple}} {{c_mail_road}}</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" role="status" aria-live="polite" data-toast>{{i:info}}<span></span></div>
+<div class="cur" aria-hidden="true" data-cur><span></span></div>

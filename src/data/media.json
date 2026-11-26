@@ -1,0 +1,30 @@
+{
+  "videos": [
+    { "id": 29376752, "out": "hero", "use": "Pradžios hero (kompiuteris)", "author": "Piotr Wojnowski", "w": 1920, "ss": 0.5, "t": 14, "crf": 27, "hflip": true, "loop": 1.0},
+    { "id": 29376752, "out": "hero-m", "use": "Pradžios hero (telefonas)", "author": "Piotr Wojnowski", "w": 960, "ss": 0.5, "t": 14, "crf": 29, "hflip": true, "loop": 1.0},
+    { "id": 28690651, "out": "svc-tent", "use": "Paslauga: tentiniai pervežimai", "author": "SHOX ART", "w": 960, "ss": 4.5, "t": 7, "crf": 28, "loop": 0.6},
+    { "id": 37162910, "out": "svc-reefer", "use": "Paslauga: temperatūriniai kroviniai", "author": "Damir K", "w": 960, "ss": 0.3, "t": 7, "crf": 28, "loop": 0.6},
+    { "id": 8344323, "out": "svc-container", "use": "Paslauga: konteinerių pervežimas", "author": "Thanh Văn", "w": 960, "ss": 0.5, "t": 8, "crf": 28, "loop": 0.6},
+    { "id": 8348310, "out": "svc-forward", "use": "Paslauga: ekspedijavimas", "author": "Kampus Production", "w": 960, "ss": 0.3, "t": 8, "crf": 28, "loop": 0.6},
+    { "id": 15978611, "out": "fleet-aerial", "use": "Autoparkas: aikštelė prie autostrados iš drono", "author": "DeLuca G", "w": 1600, "ss": 2, "t": 12, "crf": 28, "loop": 1.0},
+    { "id": 37966983, "out": "about-road", "use": "Apie mus: miško kelias", "author": "Trucker Dan", "w": 960, "ss": 3, "t": 7.5, "crf": 30, "loop": 0.8},
+    { "id": 6685042, "out": "driver-cab", "use": "Karjera: vairuotojas kabinoje", "author": "Gustavo Fring", "w": 1280, "ss": 0.5, "t": 9, "crf": 27, "loop": 0.6},
+    { "id": 4679499, "out": "driver-road", "use": "Karjera: kelyje", "author": "Erkan Avanoğlu", "w": 1120, "ss": 1, "t": 9, "crf": 29, "loop": 0.6},
+    { "id": 6685045, "out": "service-check", "use": "Transporto priežiūra", "author": "Gustavo Fring", "w": 1280, "ss": 0.3, "t": 8, "crf": 27, "loop": 0.6},
+    { "id": 7183495, "out": "cta-road", "use": "Užklausos sekcija: autostrada iš drono", "author": "Kmeel.com Videos", "w": 1600, "ss": 0.5, "t": 11, "crf": 27, "loop": 1.0},
+    { "id": 4497114, "out": "pov-road", "use": "Karjera hero: kelias iš kabinos", "author": "Martina Tomšič", "w": 1280, "ss": 0.5, "t": 8, "crf": 31, "loop": 0.8},
+    { "id": 6685041, "out": "dock-door", "use": "Paslaugos hero: atsiveriantys vartai", "author": "Gustavo Fring", "w": 1280, "ss": 0.8, "t": 12, "crf": 27, "loop": 0}
+  ],
+  "photos": [
+    { "id": 35097902, "file": "fleet-dusk", "use": "Apie mus / autoparkas: vilkikų eilė prieblandoje", "author": "İsa kahraman", "crop": [   0.3,   0,   1,   1 ]},
+    { "id": 11053640, "file": "truck-night", "use": "Privalumai: vilkikas naktį", "author": "Sergei Skrynnik"},
+    { "id": 11053643, "file": "truck-dusk", "use": "Karjera / poraštės įžanga: vilkikas prieblandoje", "author": "Sergei Skrynnik"},
+    { "id": 35501714, "file": "trailers-top", "use": "Autoparkas: puspriekabės iš viršaus", "author": "Giant Asparagus"},
+    { "id": 35501717, "file": "trailers-top-2", "use": "Paslaugos: aikštelė iš viršaus", "author": "Giant Asparagus"},
+    { "id": 2800121, "file": "yard-top", "use": "Privalumai: vilkikų aikštelė iš viršaus", "author": "Marcin Jozwiak"},
+    { "id": 11114134, "file": "dock-worker", "use": "Procesas: pakrovimas", "author": "Tony Mrst"},
+    { "id": 6720527, "file": "driver-cab", "use": "Karjera: vairuotojas kabinoje", "author": "Gustavo Fring"},
+    { "id": 6720534, "file": "driver-tablet", "use": "Karjera: dokumentai", "author": "Gustavo Fring"},
+    { "id": 37907538, "file": "dock-doors", "use": "Kontaktai / procesas: rampos", "author": "Matthew Jackson"}
+  ]
+}

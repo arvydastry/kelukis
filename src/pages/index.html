@@ -1,0 +1,377 @@
+<!--meta {
+  "title": "Kelukis | Tarptautiniai krovinių pervežimai Europoje",
+  "description": "UAB „Kelukis“: tarptautiniai krovinių pervežimai ir ekspedijavimas Vakarų Europoje. Tentinės puspriekabės, šaldytuvai, konteineriai, daugiau kaip 150 „Euro&nbsp;6“ vilkikų.",
+  "page": "home",
+  "scripts": "<script src=\"assets/js/mapdata.js\"></script>\n<script src=\"assets/js/home.js\"></script>"
+} -->
+
+<!-- ============ HERO ============
+     XStore / Elementor: pilno ekrano sekcija su fono video (Background Video), Heading, Text Button,
+     Contact Form 7 stiklo kortelėje. Gylio sluoksniai pagal pelę ir paralaksas: child temos JS (GSAP). -->
+<section class="hero on-dark" data-hero>
+  <div class="hero__stage">
+    <div class="hero__media">
+      <img src="assets/video/hero.webp" alt="" fetchpriority="high" decoding="async">
+      <video muted loop playsinline preload="none" data-src="assets/video/hero.mp4" data-src-m="assets/video/hero-m.mp4" aria-hidden="true"></video>
+    </div>
+    <div class="hero__shade"></div>
+  </div>
+  <div class="hero__in wrap">
+    <div class="hero__copy">
+      <p class="hero__chip" data-hero-in style="--i:0"><span class="pulse"></span>Tarptautiniai krovinių pervežimai nuo 2005 m.</p>
+      <h1 class="h1 hero__title" data-split data-delay=".15">Jūsų kroviniai.<br>Visi <em>Europos</em> keliai.</h1>
+      <p class="hero__lead" data-hero-in style="--i:4">Vežame pilnus krovinius tentinėmis puspriekabėmis, šaldytuvais ir konteinerių vilkikais Vakarų Europoje. Daugiau kaip 150 „Euro&nbsp;6“ vilkikų ir komanda, kuri atsako už kiekvieną reisą.</p>
+      <div class="hero__cta" data-hero-in style="--i:5">
+        <button class="btn btn--red" type="button" data-quote data-magnet><span class="btn__t" data-t="Gauti pasiūlymą"><span>Gauti pasiūlymą</span></span><span class="btn__i">{{i:arrow-up-right}}</span></button>
+        <a class="btn btn--glass" href="#paslaugos"><span class="btn__t" data-t="Mūsų paslaugos"><span>Mūsų paslaugos</span></span><span class="btn__i">{{i:arrow-down}}</span></a>
+      </div>
+    </div>
+    <aside class="hero__card" data-hero-in style="--i:6" aria-label="Greita užklausa">
+      <h2>Greita užklausa <span>1 min.</span></h2>
+      <form class="mini" data-mini>
+        <div class="mini__route">
+          <label class="mini__f">{{i:navigation-arrow}}<span class="sr">Pakrovimo vieta</span><input type="text" name="from" placeholder="Pakrovimas, pvz., Kaunas" autocomplete="off"></label>
+          <label class="mini__f">{{i:map-pin}}<span class="sr">Iškrovimo vieta</span><input type="text" name="to" placeholder="Iškrovimas, pvz., Lionas" autocomplete="off"></label>
+        </div>
+        <div class="mini__types">
+          <label class="pick"><input type="radio" name="type" value="Tentas" checked><span>{{i:truck}} Tentas</span></label>
+          <label class="pick"><input type="radio" name="type" value="Šaldytuvas"><span>{{i:snowflake}} Šaldytuvas</span></label>
+          <label class="pick"><input type="radio" name="type" value="Konteineris"><span>{{i:shipping-container}} Konteineris</span></label>
+        </div>
+        <button class="btn btn--light btn--block" type="submit"><span class="btn__t" data-t="Tęsti"><span>Tęsti</span></span><span class="btn__i">{{i:arrow-right}}</span></button>
+      </form>
+    </aside>
+  </div>
+  <div class="hero__foot wrap">
+    <a class="cue" href="#skaiciai"><i></i><span>Slinkite žemyn</span></a>
+    <button class="vbtn" type="button" data-vbtn aria-label="Sustabdyti foninį video">{{i:pause i-pause}}{{i:play i-play}}</button>
+  </div>
+</section>
+
+<div class="sheet">
+
+  <!-- ============ SKAIČIAI ============  XStore: Animated Counter / Elementor Counter -->
+  <section class="wrap" id="skaiciai" aria-label="Įmonė skaičiais">
+    <div class="stats">
+      <div class="stat" data-rv>
+        <p class="stat__n"><span class="num" data-count="21">21</span></p>
+        <p class="stat__l">metai kelyje</p>
+        <p class="stat__s">Įmonė įregistruota 2005 m. vasarį</p>
+      </div>
+      <div class="stat" data-rv style="--d:.08s">
+        <p class="stat__n"><span class="num" data-count="153">153</span></p>
+        <p class="stat__l">„Euro&nbsp;6“ vilkikai</p>
+        <p class="stat__s">ir 145 puspriekabės</p>
+      </div>
+      <div class="stat" data-rv style="--d:.16s">
+        <p class="stat__n"><span class="num" data-count="249">249</span></p>
+        <p class="stat__l">komandos nariai</p>
+        <p class="stat__s">vairuotojai, vadybininkai, technikai</p>
+      </div>
+      <div class="stat" data-rv style="--d:.24s">
+        <p class="stat__n"><span class="num" data-count="18.9" data-dec="1">18,9</span><small>mln. €</small></p>
+        <p class="stat__l">pajamos 2025 m.</p>
+        <p class="stat__s">7 kartus daugiau nei 2015 m.</p>
+      </div>
+    </div>
+    <p class="stats__src">Šaltiniai: Registrų centras, „Sodra“, „Regitra“ (2026 m. lapkritis).</p>
+  </section>
+
+  <!-- ============ KINETINĖ JUOSTA ============  XStore: Marquee (Scrolling Text). Raidžių plotis ir pasvirimas pagal slinkimo greitį: child temos JS -->
+  <div class="kin" data-kin aria-hidden="true"><div class="kin__track">{{gen:kin}}</div></div>
+
+  <!-- ============ APIE ============  Elementor: Text Editor + Image / Video su Motion Effects; žodžių paryškinimas slenkant: child temos JS -->
+  <section class="sec wrap" id="apie">
+    <div class="about">
+      <div>
+        <p class="eyebrow" data-rv>Apie įmonę</p>
+        <p class="about__say" data-words>Nuo 2005 metų vežame krovinius tarptautiniais maršrutais. Šiandien „Kelukis“ yra daugiau kaip 150 „Euro&nbsp;6“ vilkikų, beveik 250 žmonių komanda ir kasdien Vakarų Europos keliais judantys kroviniai.</p>
+        <div class="about__meta" data-rv>
+          <a class="btn btn--ink" href="kontaktai.html" data-magnet><span class="btn__t" data-t="Susisiekti"><span>Susisiekti</span></span><span class="btn__i">{{i:arrow-up-right}}</span></a>
+          <a class="link" href="#autoparkas">Mūsų autoparkas {{i:arrow-right}}</a>
+        </div>
+      </div>
+      <div class="about__media">
+        <div class="frame about__v" data-rv="clip" data-cursor="Kelyje">
+          <video data-plx="6" muted loop playsinline preload="none" poster="assets/video/about-road.webp" data-src="assets/video/about-road.mp4" data-autoplay aria-hidden="true"></video>
+        </div>
+        <figure class="frame about__p" data-rv="scale" data-float="30" style="--d:.2s">
+          <img data-plx="5" src="assets/img/photos/fleet-dusk-sm.webp" alt="Vilkikų eilė aikštelėje prieblandoje" loading="lazy" decoding="async">
+        </figure>
+        <p class="about__tag" data-float="-20">{{i:map-pin}} Bazė prie Vilniaus</p>
+        <div class="rotor" aria-hidden="true" data-float="16">
+          <svg class="rotor__t" viewBox="0 0 120 120"><defs><path id="rotp" d="M60 60m-45 0a45 45 0 1 1 90 0a45 45 0 1 1-90 0"/></defs><text><textPath href="#rotp" textLength="278">Kelyje nuo · Kelyje nuo · </textPath></text></svg>
+          <b>2005</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <article class="pil" data-rv>
+        <span class="pil__n">01</span>
+        <span class="pil__ic">{{i:truck}}</span>
+        <h3 class="h3">Savas autoparkas</h3>
+        <p>Vilkikus ir puspriekabes valdome patys, todėl techniką ir terminus planuojame be tarpininkų.</p>
+      </article>
+      <article class="pil" data-rv style="--d:.1s">
+        <span class="pil__n">02</span>
+        <span class="pil__ic">{{i:wrench}}</span>
+        <h3 class="h3">Transporto priežiūra</h3>
+        <p>Sava komanda organizuoja techninį aptarnavimą ir patikrina kiekvieną vilkiką prieš reisą ir po jo.</p>
+      </article>
+      <article class="pil" data-rv style="--d:.2s">
+        <span class="pil__n">03</span>
+        <span class="pil__ic">{{i:path}}</span>
+        <h3 class="h3">Maršrutų planavimas</h3>
+        <p>Logistikos specialistai planuoja maršrutus ir prižiūri vairuotojų darbo bei poilsio režimą.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PASLAUGOS ============  XStore: Banner / Image Accordion tipo blokas su fono video; išsiplėtimas užvedus: child temos CSS + JS -->
+  <section class="sec wrap pt0" id="paslaugos">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-rv>Paslaugos</p>
+        <h2 class="h2" data-split>Kroviniui tinkamas <em>transportas</em></h2>
+      </div>
+      <div class="shead__side" data-rv>
+        <p class="lead">Nuo palečių iki jūrinio konteinerio: puspriekabę parenkame pagal krovinį, o ne atvirkščiai.</p>
+        <a class="link" href="paslaugos.html">Visos paslaugos {{i:arrow-right}}</a>
+      </div>
+    </div>
+    <div class="pans" data-rv>
+      {{gen:panels}}
+    </div>
+  </section>
+
+  <!-- ============ MARŠRUTAI ============  nėra standartinio valdiklio: child temos modulis (canvas taškų žemėlapis + SVG maršrutai). Paprastesnis variantas: XStore Hotspot ant žemėlapio paveikslėlio -->
+  <section id="marsrutai" aria-label="Maršrutai">
+    <div class="routes on-dark" data-band>
+      <div class="routes__in wrap">
+        <div class="routes__copy">
+          <p class="eyebrow" data-rv>Maršrutai</p>
+          <h2 class="h2" data-split>Bazė prie Vilniaus. <em>Darbas</em> visoje Vakarų Europoje.</h2>
+          <p class="lead" data-rv>Vilkikai dirba kadencijomis Vakarų Europoje, o maršrutus planuoja ir techniką prižiūri komanda Lietuvoje.</p>
+          <ul class="lands" data-rv>
+            <li class="land" data-land="2" tabindex="0"><b>Vokietija</b><span>Hamburgas · Berlynas · Kelnas · Miunchenas</span></li>
+            <li class="land" data-land="4" tabindex="0"><b>Prancūzija</b><span>Paryžius · Lionas · Marselis · Bordo</span></li>
+            <li class="land" data-land="5" tabindex="0"><b>Belgija</b><span>Briuselis · Antverpenas</span></li>
+            <li class="land" data-land="9" tabindex="0"><b>Kitos ES šalys</b><span>pagal užsakymą</span></li>
+          </ul>
+          <p class="map__legend" data-rv><span><i class="r"></i>Bazė</span><span><i></i>Dirbame nuolat</span><span><i class="l"></i>Kitos šalys</span></p>
+        </div>
+        <div class="map" data-map data-in data-cursor="Europa">
+          <canvas aria-hidden="true"></canvas>
+          <svg aria-hidden="true" focusable="false"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUTOPARKAS ============  Elementor: Tabs + Counter; vilkiko brėžinys yra SVG, animacija slenkant: child temos JS (GSAP ScrollTrigger) -->
+  <section class="sec wrap" id="autoparkas">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-rv>Autoparkas</p>
+        <h2 class="h2" data-split>Technika, kuria galima <em>pasitikėti</em></h2>
+      </div>
+      <div class="shead__side" data-rv>
+        <p class="lead">Dirbame tik su „Euro&nbsp;6“ vilkikais, o parkas nuolat atnaujinamas: per pastaruosius 12 mėnesių jis padidėjo 36 transporto priemonėmis.</p>
+      </div>
+    </div>
+
+    <div class="rig" data-rig data-in>
+      <div class="rig__head">
+        <div class="tabs" role="tablist" aria-label="Puspriekabės tipas">
+          <span class="tabs__pill" aria-hidden="true"></span>
+          <button class="tabs__btn is-active" type="button" role="tab" aria-selected="true" data-type="tent">{{i:truck}} Tentinė</button>
+          <button class="tabs__btn" type="button" role="tab" aria-selected="false" data-type="reefer">{{i:snowflake}} Šaldytuvas</button>
+          <button class="tabs__btn" type="button" role="tab" aria-selected="false" data-type="box">{{i:shipping-container}} Konteinerinė</button>
+        </div>
+        <p class="rig__note">Tipiniai puspriekabių parametrai</p>
+      </div>
+      <div class="rig__stage">
+        {{> truck}}
+      </div>
+      <div class="rig__desc">
+        <p class="is-on" data-type="tent">Universali puspriekabė paletėms ir pramonės kroviniams. Kraunama iš šonų, galo ir viršaus.</p>
+        <p data-type="reefer">Izoliuotas kėbulas su šaldymo įranga kroviniams, kuriems visą kelią reikia pastovios temperatūros.</p>
+        <p data-type="box">Konteinerinė važiuoklė 20, 40 ir 45 pėdų jūriniams konteineriams.</p>
+      </div>
+      <div class="specs">
+        <div class="spec"><p class="spec__v"><span class="num" data-spec-v>13,6</span><small data-spec-u>m</small></p><p class="spec__l" data-spec-l>vidinis ilgis</p></div>
+        <div class="spec"><p class="spec__v"><span class="num" data-spec-v>92</span><small data-spec-u>m³</small></p><p class="spec__l" data-spec-l>tūris</p></div>
+        <div class="spec"><p class="spec__v"><span class="num" data-spec-v>24</span><small data-spec-u>t</small></p><p class="spec__l" data-spec-l>keliamoji galia</p></div>
+        <div class="spec"><p class="spec__v"><span class="num" data-spec-v>33</span><small data-spec-u></small></p><p class="spec__l" data-spec-l>europaletės</p></div>
+      </div>
+    </div>
+
+    <div class="fleet2">
+      <div class="frame fleet2__v" data-rv="clip" data-cursor="Parkas">
+        <video data-plx="6" muted loop playsinline preload="none" poster="assets/video/fleet-aerial.webp" data-src="assets/video/fleet-aerial.mp4" data-autoplay aria-hidden="true"></video>
+        <p class="float float--a" data-float="24">{{i:truck}} 153 vilkikai</p>
+        <p class="float float--b" data-float="-28">{{i:arrows-left-right}} 145 puspriekabės</p>
+        <div class="fleet2__cap"><p>DAF, „Volvo“ ir „Mercedes-Benz“ vilkikai su „Schmitz Cargobull“ bei „Kögel“ puspriekabėmis.</p></div>
+      </div>
+      <div class="fleet2__side">
+        <div class="fact fact--ink" data-rv>
+          <p class="tile__k">{{i:trend-up}} Parko augimas</p>
+          <div class="fact__row"><p class="fact__n">+<span class="num" data-count="36">36</span></p><p>transporto priemonės per pastaruosius 12 mėnesių</p></div>
+        </div>
+        <div class="fact fact--lilac" data-rv style="--d:.1s">
+          <p class="tile__k">{{i:leaf}} Standartas</p>
+          <div class="fact__row"><p class="fact__n">Euro<small>6</small></p><p>visas vilkikų parkas</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brands" aria-label="Autoparko gamintojai"><div class="brands__track">{{gen:brands}}</div></div>
+  </section>
+
+  <!-- ============ KODĖL KELUKIS ============  Elementor: konteinerių tinklelis (CSS Grid) su Icon Box, Counter ir fono video; 3D pakreipimas: child temos JS -->
+  <section class="sec wrap pt0" id="kodel">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-rv>Kodėl „Kelukis“</p>
+        <h2 class="h2" data-split>Skaičiai, kuriais galima <em>remtis</em></h2>
+      </div>
+      <div class="shead__side" data-rv>
+        <p class="lead">Ne pažadai, o viešai skelbiami duomenys apie įmonę: augimas, finansinė drausmė ir technika.</p>
+      </div>
+    </div>
+    <div class="bento">
+      <article class="tile tile--a on-dark" data-rv data-tilt="5">
+        <div class="tile__bg"><img src="assets/img/photos/truck-night.webp" alt="" loading="lazy" decoding="async"></div>
+        <p class="tile__k">{{i:leaf}} Autoparkas</p>
+        <div>
+          <p class="e6"><small>Visi vilkikai</small>Euro 6</p>
+          <p style="margin-top:22px">Dirbame tik su „Euro&nbsp;6“ standartą atitinkančiais vilkikais: mažesnė tarša kiekviename kilometre.</p>
+        </div>
+      </article>
+      <article class="tile tile--b" data-rv style="--d:.08s">
+        <div class="tile__top">
+          <div><p class="tile__k">{{i:chart-line-up}} Augimas</p><p class="tile__h" style="margin-top:14px">7 kartus per 10 metų</p></div>
+          <p class="big num">18,9<small>mln. €</small></p>
+        </div>
+        <ul class="bars" aria-label="Pardavimo pajamos 2015–2025 m., mln. eurų">
+          {{gen:bars}}
+        </ul>
+        <p class="fine" style="margin:0">Pardavimo pajamos, mln. €. Šaltinis: Registrų centras.</p>
+      </article>
+      <article class="tile tile--c" data-rv data-tilt="6" style="--d:.12s">
+        <p class="tile__k">{{i:shield-check}} Finansinė drausmė</p>
+        <div>
+          <p class="tile__h">Žemiausia kredito rizika</p>
+          <ul class="ok" style="margin-top:18px">
+            <li>{{i:check}} Nėra skolų VMI</li>
+            <li>{{i:check}} Nėra skolų „Sodrai“</li>
+          </ul>
+          <p class="fine">Šaltinis: rekvizitai.vz.lt, 2026 m. lapkritis.</p>
+        </div>
+        {{i:seal-check seal}}
+      </article>
+      <article class="tile tile--d" data-rv data-tilt="6" style="--d:.16s">
+        <p class="tile__k">{{i:certificate}} Licencija</p>
+        <div>
+          <p class="big num">2035</p>
+          <p style="margin-top:12px">Bendrijos licencija tarptautiniam krovinių vežimui galioja iki 2035 m.</p>
+        </div>
+      </article>
+      <article class="tile tile--e on-dark" data-rv>
+        <video muted loop playsinline preload="none" poster="assets/video/service-check.webp" data-src="assets/video/service-check.mp4" data-autoplay aria-hidden="true"></video>
+        <p class="tile__k">{{i:wrench}} Transporto priežiūra</p>
+        <div>
+          <p class="tile__h" style="max-width:17ch">Kiekvienas vilkikas patikrinamas prieš reisą ir po jo</p>
+          <p style="margin-top:12px">Sava komanda organizuoja remontą, techninį aptarnavimą ir fiksuoja kiekvieną defektą.</p>
+        </div>
+      </article>
+      <article class="tile tile--f" data-rv data-tilt="5" style="--d:.08s">
+        <div class="tile__top">
+          <p class="tile__k">{{i:users-three}} Komanda</p>
+          <p class="big"><span class="num" data-count="249">249</span></p>
+        </div>
+        {{gen:spark}}
+        <p>Nuo 74 darbuotojų 2018 m. iki 249 šiandien. Šaltinis: „Sodra“.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PROCESAS ============  XStore: Vertical Timeline. Kelias su važiuojančiu vilkiku: child temos JS (SVG kelias pagal slinkimą) -->
+  <section class="sec wrap pt0 proc" id="procesas" data-proc>
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-rv>Kaip dirbame</p>
+        <h2 class="h2" data-split>Nuo užklausos iki <em>pristatymo</em></h2>
+      </div>
+      <div class="shead__side" data-rv>
+        <p class="lead">Keturi žingsniai ir vienas kontaktinis asmuo, kuris žino, kur šiuo metu yra jūsų krovinys.</p>
+      </div>
+    </div>
+    <div class="proc__track">
+      <svg class="proc__svg" aria-hidden="true" focusable="false"><path class="proc__road"/><path class="proc__dash"/><path class="proc__prog"/></svg>
+      <div class="proc__truck" aria-hidden="true"><svg viewBox="0 0 34 88"><rect x="3" y="1.5" width="28" height="59" rx="4" fill="#fff" stroke="#16143A" stroke-width="2"/><path d="M9 13h16M9 23h16M9 33h16M9 43h16" stroke="#D7DAF3" stroke-width="2.4" stroke-linecap="round"/><rect x="5.5" y="63" width="23" height="23" rx="6.5" fill="#E42024" stroke="#16143A" stroke-width="2"/><rect x="9.5" y="76.5" width="15" height="5" rx="2.5" fill="#16143A" opacity=".8"/><path d="M1.8 70h3.6M28.6 70h3.6" stroke="#16143A" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+
+      <article class="pstep">
+        <div class="pstep__card" data-rv="left">
+          <span class="pstep__n">01</span>
+          <h3 class="h3">Užklausa</h3>
+          <p>Parašote, ką, iš kur ir kada reikia vežti. Atsakome darbo dienomis nuo 8.00 iki 17.00.</p>
+        </div>
+        <div class="frame frame--flat pstep__media" data-rv="right"><img src="assets/video/svc-forward.webp" alt="Logistikos specialistai prie kompiuterio" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="pstep">
+        <div class="pstep__card" data-rv="right">
+          <span class="pstep__n">02</span>
+          <h3 class="h3">Pasiūlymas</h3>
+          <p>Parenkame puspriekabę, suplanuojame maršrutą ir pateikiame kainą bei terminus.</p>
+        </div>
+        <div class="frame frame--flat pstep__media" data-rv="left"><img src="assets/img/photos/trailers-top-sm.webp" alt="Puspriekabės aikštelėje iš viršaus" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="pstep">
+        <div class="pstep__card" data-rv="left">
+          <span class="pstep__n">03</span>
+          <h3 class="h3">Pakrovimas</h3>
+          <p>Vilkikas atvyksta sutartu laiku. Krovinį lydi CMR važtaraštis ir reikalingi dokumentai.</p>
+        </div>
+        <div class="frame frame--flat pstep__media" data-rv="right"><img src="assets/img/photos/dock-worker-sm.webp" alt="Vairuotojas prie puspriekabės rampoje" loading="lazy" decoding="async"></div>
+      </article>
+      <article class="pstep">
+        <div class="pstep__card" data-rv="right">
+          <span class="pstep__n">04</span>
+          <h3 class="h3">Pristatymas</h3>
+          <p>Krovinį pristatome gavėjui, o pasirašytus dokumentus perduodame jums.</p>
+        </div>
+        <div class="frame frame--flat pstep__media" data-rv="left"><img src="assets/img/photos/dock-doors-sm.webp" alt="Sandėlio rampos" loading="lazy" decoding="async"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ KARJERA ============  Elementor: sekcija su fono video + Icon List + kortelė (Call to Action) -->
+  <section id="karjera" aria-label="Karjera">
+    <div class="cband on-dark" data-band>
+      <div class="cband__media" data-plx="7"><video muted loop playsinline preload="none" poster="assets/video/driver-cab.webp" data-src="assets/video/driver-cab.mp4" data-autoplay aria-hidden="true"></video></div>
+      <div class="cband__in wrap">
+        <div>
+          <p class="eyebrow">Karjera</p>
+          <h2 class="h2" data-split>Prisijunk prie nuolat <em>augančios</em> komandos</h2>
+          <ul class="ticks" data-rv>
+            <li>{{i:check}} Kadencijos: 4, 6 arba 8 savaitės kelyje</li>
+            <li>{{i:check}} Tik „Euro&nbsp;6“ vilkikai: DAF, „Volvo“, „Mercedes-Benz“</li>
+            <li>{{i:check}} Maršrutai Vakarų Europoje</li>
+          </ul>
+          <a class="btn btn--light" href="karjera.html" data-magnet data-rv><span class="btn__t" data-t="Darbo pasiūlymai"><span>Darbo pasiūlymai</span></span><span class="btn__i">{{i:arrow-up-right}}</span></a>
+        </div>
+        <a class="job" href="karjera.html#pozicijos" data-rv="scale" data-tilt="7">
+          <p class="job__k"><span><span class="pulse"></span>Atvira pozicija</span><span>Vilnius</span></p>
+          <h3>Transporto priežiūros vadybininkas (-ė)</h3>
+          <div class="job__m"><ul class="chips"><li>Visa darbo diena</li><li>1 700–2 500 €/mėn. į rankas</li></ul></div>
+          <p class="job__go">Plačiau {{i:arrow-right}}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {{> cta}}
+
+</div>

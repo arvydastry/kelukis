@@ -1,0 +1,36 @@
+<!-- XStore: Header Builder (permatoma + lipni antraštė), Mega Menu su Static Block, kalbų jungiklis (WPML / Polylang) -->
+<header class="hdr" data-hdr>
+  <div class="hdr__bar">
+    <a class="hdr__logo" href="index.html" aria-label="Kelukis, į pradžios puslapį">{{logo}}</a>
+    <nav class="hdr__nav" aria-label="Pagrindinis meniu">
+      <ul>
+        <li class="has-mega">
+          <a href="paslaugos.html" class="{{nav_pasl}}">Paslaugos {{i:caret-down}}</a>
+          <div class="mega">
+            <div class="mega__in">
+              {{gen:mega}}
+              <p class="mega__foot"><span>Nežinote, kuri puspriekabė tinka jūsų kroviniui? Parašykite, patarsime.</span><a class="link" href="paslaugos.html">Visos paslaugos {{i:arrow-right}}</a></p>
+            </div>
+          </div>
+        </li>
+        <li><a href="index.html#autoparkas">Autoparkas</a></li>
+        <li><a href="index.html#apie">Apie mus</a></li>
+        <li><a href="karjera.html" class="{{nav_karj}}">Karjera <span class="hdr__badge" title="Atvira 1 darbo vieta">1</span></a></li>
+        <li><a href="kontaktai.html" class="{{nav_kont}}">Kontaktai</a></li>
+      </ul>
+    </nav>
+    <div class="hdr__tools">
+      <div class="lang" data-lang>
+        <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Kalba: lietuvių">{{i:globe-simple}} LT {{i:caret-down}}</button>
+        <ul class="lang__menu">
+          <li><a href="#" data-demo="lang">English <small>EN</small></a></li>
+          <li><a href="#" data-demo="lang">Deutsch <small>DE</small></a></li>
+          <li><a href="#" data-demo="lang">Русский <small>RU</small></a></li>
+        </ul>
+      </div>
+      <a class="hdr__tel" href="tel:{{c_tel_href}}">{{i:phone}} <span>{{c_tel}}</span></a>
+      <button class="btn btn--red btn--sm" type="button" data-quote data-magnet><span class="btn__t" data-t="Gauti pasiūlymą"><span>Gauti pasiūlymą</span></span><span class="btn__i">{{i:arrow-up-right}}</span></button>
+      <button class="hdr__burger" type="button" aria-label="Atidaryti meniu" aria-expanded="false" data-menu><span></span><span></span></button>
+    </div>
+  </div>
+</header>

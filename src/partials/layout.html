@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="lt" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<!-- DEMO: prieš tikrą paleidimą šią žymą išimti ir neperkelti į WordPress -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16143A">
+<link rel="icon" href="assets/img/brand/mark.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(h){h.className='js';var s=location.search;if(/[?&]static=1/.test(s))h.classList.add('is-static');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('is-reduced');try{if(sessionStorage.getItem('kl-intro'))h.classList.add('no-intro');if(sessionStorage.getItem('kl-nav')){h.classList.add('from-nav','no-intro');sessionStorage.removeItem('kl-nav')}}catch(e){h.classList.add('no-intro')}setTimeout(function(){if(!window.__kl)h.classList.add('is-static')},4500)})(document.documentElement);</script>
+</head>
+<body data-page="{{page}}" class="{{bodyclass}}">
+{{icons}}
+<a class="skip" href="#main">Pereiti prie turinio</a>
+<div class="pre" aria-hidden="true" data-pre>
+  <div class="pre__box">
+    {{logo}}
+    <div class="pre__bar"><i></i></div>
+    <div class="pre__row"><span>Kelyje nuo 2005 m.</span><span class="num" data-pre-n>0 %</span></div>
+  </div>
+</div>
+<div class="curtain" aria-hidden="true"></div>
+{{> header}}
+<main id="main" class="site-main">
+{{content}}
+</main>
+{{> footer}}
+{{> overlays}}
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/vendor/SplitText.min.js"></script>
+<script src="assets/js/vendor/lenis.min.js"></script>
+<script src="assets/js/main.js"></script>
+{{scripts}}
+</body>
+</html>

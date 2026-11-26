@@ -1,0 +1,48 @@
+{
+  "company": {
+    "c_name": "UAB „Kelukis“",
+    "c_code": "300089863",
+    "c_vat": "LT100001492712",
+    "c_addr": "Senasis Ukmergės kel. 4, Užubalių k., LT-14302 Vilniaus r.",
+    "c_addr_short": "Senasis Ukmergės kel. 4, Užubalių k.",
+    "c_reg": "Laisvės pr. 117-58, LT-06118 Vilnius",
+    "c_tel": "+370 5 273 6827",
+    "c_tel_href": "+37052736827",
+    "c_mob": "+370 686 82093",
+    "c_mob_href": "+37068682093",
+    "c_mail": "kelukis@kelukis.lt",
+    "c_mail_road": "road@kelukis.lt",
+    "c_hours": "I–V 8.00–17.00",
+    "c_maps": "https://www.google.com/maps/search/?api=1&query=Senasis+Ukmerg%C4%97s+kel.+4%2C+U%C5%BEubali%C5%B3+k.%2C+Vilniaus+r."
+  },
+  "services": [
+    {
+      "n": "01", "slug": "tentiniai-pervezimai", "name": "Tentiniai pervežimai", "short": "Tentai", "icon": "truck", "video": "svc-tent",
+      "mega": "Pilni kroviniai tentinėmis puspriekabėmis",
+      "lead": "Pilni kroviniai tentinėmis puspriekabėmis: paletės, pramonės ir prekybos kroviniai visoje Vakarų Europoje.",
+      "chips": ["13,6 m", "iki 24 t", "33 europaletės"]
+    },
+    {
+      "n": "02", "slug": "temperaturiniai-kroviniai", "name": "Temperatūriniai kroviniai", "short": "Šaldytuvai", "icon": "snowflake", "video": "svc-reefer",
+      "mega": "Šaldytuvai pastoviam temperatūros režimui",
+      "lead": "Šaldytuvais vežame krovinius, kuriems visą kelią reikia pastovaus temperatūros režimo.",
+      "chips": ["Šaldytuvai", "Režimo kontrolė", "Pilni kroviniai"]
+    },
+    {
+      "n": "03", "slug": "konteineriu-pervezimas", "name": "Konteinerių pervežimas", "short": "Konteineriai", "icon": "shipping-container", "video": "svc-container",
+      "mega": "Jūriniai konteineriai tarp uostų ir sandėlių",
+      "lead": "Jūrinių konteinerių pervežimas tarp uostų, terminalų ir gavėjų sandėlių.",
+      "chips": ["20′", "40′", "45′"]
+    },
+    {
+      "n": "04", "slug": "ekspedijavimas", "name": "Ekspedijavimas", "short": "Ekspedijavimas", "icon": "path", "video": "svc-forward",
+      "mega": "Transporto parinkimas ir maršruto planavimas",
+      "lead": "Parenkame transportą, suplanuojame maršrutą ir prižiūrime krovinį iki pat pristatymo.",
+      "chips": ["Pilni ir daliniai kroviniai", "Vienas kontaktas"]
+    }
+  ],
+  "marquee": ["Tentai", "Šaldytuvai", "Konteineriai", "Ekspedijavimas", "Pilni kroviniai", "Euro 6", "Vakarų Europa"],
+  "brands": ["DAF XG", "Volvo FH", "Mercedes-Benz Actros", "MAN TGX", "Schmitz Cargobull", "Kögel"],
+  "revenue": [[2015, 2.6], [2016, 3.1], [2017, 3.7], [2018, 4.9], [2019, 6.5], [2020, 6.8], [2021, 9.0], [2022, 14.7], [2023, 18.2], [2024, 14.8], [2025, 18.9]],
+  "team": [[2018, 74], [2019, 111], [2020, 95], [2021, 148], [2022, 165], [2023, 193], [2024, 165], [2025, 191], [2026, 249]]
+}

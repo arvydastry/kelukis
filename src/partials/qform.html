@@ -1,0 +1,31 @@
+<form class="qf" data-form="quote" novalidate>
+  <div class="qf__row">
+    <label class="fld"><input type="text" name="from" placeholder=" " required autocomplete="off"><span class="fld__l">Pakrovimo vieta</span></label>
+    <label class="fld"><input type="text" name="to" placeholder=" " required autocomplete="off"><span class="fld__l">Iškrovimo vieta</span></label>
+  </div>
+  <fieldset class="qf__types">
+    <legend>Transportas</legend>
+    <label class="pick"><input type="radio" name="type" value="Tentas" checked><span>{{i:truck}} Tentas</span></label>
+    <label class="pick"><input type="radio" name="type" value="Šaldytuvas"><span>{{i:snowflake}} Šaldytuvas</span></label>
+    <label class="pick"><input type="radio" name="type" value="Konteineris"><span>{{i:shipping-container}} Konteineris</span></label>
+    <label class="pick"><input type="radio" name="type" value="Nežinau"><span>Nežinau</span></label>
+  </fieldset>
+  <div class="qf__row">
+    <label class="fld"><input type="text" name="cargo" placeholder=" " autocomplete="off"><span class="fld__l">Krovinys, pvz., 33 paletės, 22 t</span></label>
+    <label class="fld fld--up"><input type="date" name="date"><span class="fld__l">Pakrovimo data</span></label>
+  </div>
+  <div class="qf__row">
+    <label class="fld"><input type="text" name="name" placeholder=" " required autocomplete="name"><span class="fld__l">Vardas, pavardė</span></label>
+    <label class="fld"><input type="text" name="company" placeholder=" " autocomplete="organization"><span class="fld__l">Įmonė</span></label>
+  </div>
+  <div class="qf__row">
+    <label class="fld"><input type="email" name="email" placeholder=" " required autocomplete="email"><span class="fld__l">El. paštas</span></label>
+    <label class="fld"><input type="tel" name="phone" placeholder=" " autocomplete="tel"><span class="fld__l">Telefonas</span></label>
+  </div>
+  <label class="chk"><input type="checkbox" name="agree" required><span>Sutinku, kad pateikti duomenys būtų naudojami atsakymui į šią užklausą.</span></label>
+  <div class="qf__foot">
+    <button class="btn btn--red" type="submit" data-magnet><span class="btn__t" data-t="Siųsti užklausą"><span>Siųsti užklausą</span></span><span class="btn__i">{{i:paper-plane-tilt}}</span></button>
+    <p class="qf__note">Demo versija: forma duomenų niekur nesiunčia.</p>
+  </div>
+  <p class="qf__done" role="status">{{i:check}} Ačiū! Tikroje svetainėje užklausa būtų išsiųsta, o atsakymą gautumėte darbo valandomis.</p>
+</form>

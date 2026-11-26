@@ -1,0 +1,62 @@
+<!-- XStore: Footer Builder / Static Block. Atsidengimas iš po turinio: child temos CSS (position: sticky) -->
+<footer class="ftr on-dark" data-ftr>
+  <div class="ftr__in wrap">
+    <div class="ftr__top">
+      <div>
+        <p class="eyebrow">Susisiekime</p>
+        <p class="ftr__cta" data-split>Krovinys laukia? <em>Parašykite.</em></p>
+      </div>
+      <div class="ftr__reach" data-rv>
+        <a class="ftr__big" href="tel:{{c_tel_href}}">{{c_tel}} {{i:arrow-up-right}}</a>
+        <a class="ftr__big" href="mailto:{{c_mail}}">{{c_mail}} {{i:arrow-up-right}}</a>
+        <button class="btn btn--light" type="button" data-quote data-magnet><span class="btn__t" data-t="Gauti pasiūlymą"><span>Gauti pasiūlymą</span></span><span class="btn__i">{{i:arrow-up-right}}</span></button>
+      </div>
+    </div>
+    <div class="ftr__grid">
+      <div data-rv>
+        <p class="ftr__h">Paslaugos</p>
+        <ul>
+          {{gen:service_links}}
+        </ul>
+      </div>
+      <div data-rv style="--d:.08s">
+        <p class="ftr__h">Įmonė</p>
+        <ul>
+          <li><a href="index.html#apie">Apie mus</a></li>
+          <li><a href="index.html#autoparkas">Autoparkas</a></li>
+          <li><a href="index.html#marsrutai">Maršrutai</a></li>
+          <li><a href="karjera.html">Karjera</a></li>
+          <li><a href="kontaktai.html">Kontaktai</a></li>
+        </ul>
+      </div>
+      <div data-rv style="--d:.16s">
+        <p class="ftr__h">Biuras ir bazė</p>
+        <p>{{c_addr_short}}<br>LT-14302 Vilniaus r.</p>
+        <p style="margin-top:12px">Darbo laikas: {{c_hours}}</p>
+        <p style="margin-top:12px"><a href="tel:{{c_mob_href}}">{{c_mob}}</a><br><a href="mailto:{{c_mail_road}}">{{c_mail_road}}</a></p>
+      </div>
+      <div data-rv style="--d:.24s">
+        <p class="ftr__h">Rekvizitai</p>
+        <div class="req">
+          <div class="req__r"><span>Įmonė</span><b>{{c_name}}</b></div>
+          <div class="req__r"><span>Įmonės kodas</span><b class="num">{{c_code}}</b><button class="copy" type="button" data-copy="{{c_code}}" aria-label="Kopijuoti įmonės kodą">{{i:copy}}</button></div>
+          <div class="req__r"><span>PVM kodas</span><b class="num">{{c_vat}}</b><button class="copy" type="button" data-copy="{{c_vat}}" aria-label="Kopijuoti PVM kodą">{{i:copy}}</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="ftr__road" aria-hidden="true">{{> truck-mini}}{{> truck-mini}}</div>
+    <div class="ftr__word" aria-hidden="true" data-rv="fade">{{logo}}</div>
+    <div class="ftr__bot">
+      <span>© 2026 {{c_name}}. Visos teisės saugomos.</span>
+      <ul>
+        <li><a href="#" data-demo="privacy">Privatumo politika</a></li>
+        <li><a href="#" data-demo="privacy">Slapukai</a></li>
+        <li><span class="demo-tag">Demo versija</span></li>
+      </ul>
+      <div class="ftr__soc">
+        <a href="#" data-demo="social" aria-label="LinkedIn">{{i:linkedin-logo}}</a>
+        <a href="#" data-demo="social" aria-label="Facebook">{{i:facebook-logo}}</a>
+      </div>
+    </div>
+  </div>
+</footer>
