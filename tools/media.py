@@ -3,6 +3,7 @@
 
     python3 tools/media.py photos  --raw DIR              # DIR/<id>.jpg (jei nera, atsisiuncia) -> assets/img/photos/*.webp
     python3 tools/media.py videos  --raw DIR --ffmpeg F   # DIR/<id>.mp4 (jei nera, atsisiuncia) -> assets/video/*.mp4 + plakatai *.webp
+    python3 tools/media.py posters --ffmpeg F             # tik plakatai is jau uzkoduotu assets/video/*.mp4
     python3 tools/media.py credits                        # docs/pexels-credits.md
 
 Reikia: curl, Pillow; video daliai ffmpeg (pvz. is paketo imageio-ffmpeg).
@@ -65,12 +66,22 @@ def encode(ffmpeg, src, out, v):
     ff(ffmpeg, '-i', str(src), '-filter_complex', fc, '-map', '[out]', *common, str(out))
 
 
-def poster(ffmpeg, mp4, out_webp, at=0.1):
+def poster(ffmpeg, mp4, out_webp):
+    """Plakatas yra tiksliai pirmasis video kadras: kitaip, prasidejus grojimui, vaizdas pastebimai soktelėtu."""
     from PIL import Image
     png = out_webp.with_suffix('.png')
-    ff(ffmpeg, '-ss', str(at), '-i', str(mp4), '-frames:v', '1', str(png))
-    Image.open(png).convert('RGB').save(out_webp, 'WEBP', quality=72, method=6)
+    ff(ffmpeg, '-i', str(mp4), '-frames:v', '1', str(png))
+    Image.open(png).convert('RGB').save(out_webp, 'WEBP', quality=78, method=6)
     png.unlink()
+
+
+def posters(ffmpeg):
+    """Perdaro tik plakatus is jau uzkoduotu assets/video/*.mp4 (video neperkoduojami)."""
+    for v in MEDIA['videos']:
+        mp4 = VIDEO / f"{v['out']}.mp4"
+        if mp4.exists():
+            poster(ffmpeg, mp4, VIDEO / f"{v['out']}.webp")
+            print(f"{v['out']}.webp {(VIDEO / (v['out'] + '.webp')).stat().st_size / 1024:.0f} KB")
 
 
 def videos(raw, ffmpeg, only=None):
@@ -109,7 +120,7 @@ def credits():
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('what', choices=['photos', 'videos', 'credits'])
+    ap.add_argument('what', choices=['photos', 'videos', 'posters', 'credits'])
     ap.add_argument('--raw', type=pathlib.Path)
     ap.add_argument('--ffmpeg', default='ffmpeg')
     ap.add_argument('--only', nargs='*')
@@ -118,4 +129,5 @@ if __name__ == '__main__':
     raw.mkdir(parents=True, exist_ok=True)
     if a.what == 'photos': photos(raw)
     elif a.what == 'videos': videos(raw, a.ffmpeg, a.only)
+    elif a.what == 'posters': posters(a.ffmpeg)
     else: credits()

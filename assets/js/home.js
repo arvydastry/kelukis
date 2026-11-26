@@ -23,26 +23,38 @@
       vbtn.classList.toggle('is-paused', !wasPaused);
       vbtn.setAttribute('aria-label', wasPaused ? 'Sustabdyti foninį video' : 'Paleisti foninį video');
     });
-    KL.onReady(function () { hero.classList.add('is-in'); });
+    KL.onReady(function () {
+      hero.classList.add('is-in');
+      // Įžangai pasibaigus (ilgiausias perėjimas trunka apie 2 s) transition išjungiamas: toliau opacity slenkant valdo GSAP
+      setTimeout(function () { hero.classList.add('is-settled'); }, 2400);
+    });
     if (MOTION) {
       if (KL.fine) {                                   // gylio sluoksniai pagal pelę
         var mx = 0, my = 0, tx = 0, ty = 0;
         hero.addEventListener('pointermove', function (e) {
+          if (!KL.realMove()) return;
           var r = hero.getBoundingClientRect();
           tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1;
         });
-        hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; });
         gsap.ticker.add(function () {
           if (Math.abs(tx - mx) < 0.0008 && Math.abs(ty - my) < 0.0008) return;
           mx += (tx - mx) * 0.07; my += (ty - my) * 0.07;
           hero.style.setProperty('--mx', mx.toFixed(4)); hero.style.setProperty('--my', my.toFixed(4));
         });
       }
-      var hst = { trigger: hero, start: 'top top', end: 'bottom top', scrub: true };
-      gsap.to('.hero__stage', { yPercent: 24, ease: 'none', scrollTrigger: hst });
-      gsap.fromTo(hero, { '--zoom': 1 }, { '--zoom': 1.16, ease: 'none', scrollTrigger: hst });
-      gsap.to('.hero__in', { opacity: 0, y: -70, ease: 'none', scrollTrigger: { trigger: hero, start: '16% top', end: '78% top', scrub: true } });
-      gsap.to('.hero__foot', { opacity: 0, ease: 'none', scrollTrigger: { trigger: hero, start: '4% top', end: '26% top', scrub: true } });
+      var whole = function () { return { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }; };
+      var fade = function () { return { trigger: hero, start: '16% top', end: '78% top', scrub: true }; };
+      gsap.to('.hero__stage', { yPercent: 24, ease: 'none', scrollTrigger: whole() });
+      // --zoom rašomas ant paties medijos sluoksnio (ne ant viso hero), kad kas kadrą nereikėtų perskaičiuoti viso hero stilių
+      gsap.fromTo('.hero__media', { '--zoom': 1 }, { '--zoom': 1.16, ease: 'none', scrollTrigger: whole() });
+      gsap.to('.hero__in', { y: -70, ease: 'none', scrollTrigger: fade() });
+      // Išblukimas dedamas ant atskirų elementų, ne ant bendro .hero__in konteinerio: konteineris su opacity < 1
+      // atkirstų stiklo elementus (backdrop-filter: ženklelį ir užklausos kortelę) nuo video už jų, ir suliejimas staiga
+      // dingtų vos pradėjus slinkti. .hero__cta gali išblukti visas, nes jame stiklo elementų nėra.
+      gsap.fromTo($$('.hero__chip, .hero__title, .hero__lead, .hero__cta, .hero__card', hero), { opacity: 1 },
+        { opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: fade() });
+      gsap.fromTo($$('.hero__foot > *', hero), { opacity: 1 },
+        { opacity: 0, ease: 'none', immediateRender: false, scrollTrigger: { trigger: hero, start: '4% top', end: '26% top', scrub: true } });
       ST.create({ trigger: hero, start: 'top top', end: 'bottom top',
         onLeave: function () { if (hv && !hv.paused) hv.pause(); },
         onEnterBack: function () { if (hv && PLAY && hv.dataset.user !== 'paused') play(hv); } });
@@ -82,7 +94,9 @@
       });
     };
     pans.forEach(function (p) {
-      p.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && window.innerWidth > 900) act(p); });
+      // pointermove, ne pointerenter: slenkant puslapį po nejudančia pele naršyklė siunčia pointerenter, ir skydas išsiplėstų pats.
+      // pointermove ateina tik pelei tikrai pajudėjus.
+      p.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && KL.realMove() && window.innerWidth > 900 && !p.classList.contains('is-active')) act(p); });
       p.addEventListener('click', function (e) { if (!p.classList.contains('is-active')) { e.preventDefault(); act(p); } });
       p.addEventListener('focus', function () { act(p); });
       p.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === p) { e.preventDefault(); act(p); } });
@@ -186,13 +200,14 @@
     /* sąveika */
     $$('[data-land]').forEach(function (row) {
       var v = parseInt(row.dataset.land, 10) || 0;
-      var on = function () { hl = v; row.classList.add('is-on'); if (!MOTION) draw(0); };
-      var off = function () { hl = 0; row.classList.remove('is-on'); if (!MOTION) draw(0); };
-      row.addEventListener('pointerenter', on); row.addEventListener('pointerleave', off);
+      var on = function () { if (hl === v && row.classList.contains('is-on')) return; hl = v; row.classList.add('is-on'); if (!MOTION) draw(0); };
+      var off = function () { if (hl === v) hl = 0; row.classList.remove('is-on'); if (!MOTION) draw(0); };
+      // pointermove, ne pointerenter: kitaip slenkant po nejudančia pele šalys žemėlapyje mirksėtų viena po kitos
+      row.addEventListener('pointermove', function () { if (KL.realMove()) on(); }); row.addEventListener('pointerleave', off);
       row.addEventListener('focus', on); row.addEventListener('blur', off);
     });
     if (KL.fine) {
-      mapEl.addEventListener('pointermove', function (e) { var r = mapEl.getBoundingClientRect(), k = r.width / M.w; px = (e.clientX - r.left) / k; py = (e.clientY - r.top) / k; });
+      mapEl.addEventListener('pointermove', function (e) { if (!KL.realMove()) return; var r = mapEl.getBoundingClientRect(), k = r.width / M.w; px = (e.clientX - r.left) / k; py = (e.clientY - r.top) / k; });
       mapEl.addEventListener('pointerleave', function () { px = py = -999; });
     }
     window.addEventListener('resize', size);
@@ -201,6 +216,8 @@
       new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }, { rootMargin: '80px 0px' }).observe(mapEl);
       gsap.ticker.add(function (t) {
         if (!vis || t - last < 0.031) return;
+        // Atsiskleidus žemėlapiui, slenkant jis neperpiešiamas (taškų mirgėjimo tada vis tiek nesimato), kad slinkimui liktų daugiau laiko
+        if (started && st.rev >= 1 && performance.now() - (KL.lastScroll || 0) < 150) return;
         last = t;
         if (!started && mapEl.classList.contains('is-in')) { started = true; gsap.to(st, { rev: 1, duration: 2.6, ease: 'power2.out' }); }
         draw(t * 1000);
@@ -240,31 +257,35 @@
     window.addEventListener('load', movePill);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(movePill);
     if (MOTION) {
-      var svgEl = $('[data-rig-svg]', rig), truck = $('[data-rig-truck]', rig);
-      var trg = { trigger: svgEl, start: 'top 98%', end: 'top 34%', scrub: 0.7 };
-      gsap.fromTo(truck, { x: -300 }, { x: 0, ease: 'none', scrollTrigger: trg });
-      // ratai sukasi per CSS kintamąjį (transform-box: fill-box), todėl kiekvienas sukasi apie savo ašį
-      ST.create({ trigger: svgEl, start: 'top 98%', end: 'top 34%', scrub: 0.7,
-        onUpdate: function (s) { rig.style.setProperty('--wr', ((s.progress - 1) * 554).toFixed(1) + 'deg'); } });
+      var svgEl = $('[data-rig-svg]', rig), truck = $('[data-rig-truck]', rig), wheels = $$('.tr-wheel', rig);
+      // Ratai sukami tiesiogiai (CSS: transform-box: fill-box, todėl kiekvienas apie savo ašį) ir pagal tos pačios
+      // animacijos eigą kaip vilkiko poslinkis, kad sukimasis ir važiavimas visada sutaptų.
+      var spin = function () {
+        var deg = 'rotate(' + ((this.progress() - 1) * 554).toFixed(1) + 'deg)';
+        for (var i = 0; i < wheels.length; i++) wheels[i].style.transform = deg;
+      };
+      gsap.fromTo(truck, { x: -300 }, { x: 0, ease: 'none', onUpdate: spin,
+        scrollTrigger: { trigger: svgEl, start: 'top 98%', end: 'top 34%', scrub: 0.7 } });
     }
   })();
 
-  /* ================= procesas: vilkikas važiuoja keliu ================= */
+  /* ================= procesas: vilkikas važiuoja keliu =================
+     Vilkiką vertikaliai laiko bėgis su position: sticky (56 % ekrano aukščio), todėl jo nereikia kas kadrą „traukti atgal“
+     prieš slinkimą: taip jis nedreba ir tada, kai slenkama klaviatūra, slinkties juosta ar pirštu.
+     JS pagal bėgio vietą kelyje nustato tik poslinkį į šoną, pasukimą ir raudonos linijos ilgį. */
   var proc = $('[data-proc]');
   if (proc) (function () {
-    var track = $('.proc__track', proc), svg = $('.proc__svg', proc), paths = $$('path', svg), prog = $('.proc__prog', svg);
-    var truck = $('.proc__truck', proc), steps = $$('.pstep', track), L = 0, stops = [], raf = 0;
-    function lenAtY(y) {                                   // kelias tolygiai leidžiasi žemyn, todėl užtenka dvejetainės paieškos
-      var a = 0, b = L;
-      for (var i = 0; i < 22; i++) { var m = (a + b) / 2; if (prog.getPointAtLength(m).y < y) a = m; else b = m; }
-      return (a + b) / 2;
-    }
+    var track = $('.proc__track', proc), rail = $('.proc__rail', proc), svg = $('.proc__svg', proc);
+    if (!track || !rail || !svg) return;
+    var paths = $$('path', svg), prog = $('.proc__prog', svg), truck = $('.proc__truck', proc), steps = $$('.pstep', track);
+    var L = 0, n = 0, xs = [], ys = [], stopsY = [], raf = 0;
     function build() {
       var W = track.clientWidth, Ht = track.clientHeight, mob = window.innerWidth <= 860;
       if (!W || !Ht) return;
       svg.setAttribute('viewBox', '0 0 ' + W + ' ' + Ht);
       var cx = mob ? 30 : W / 2, amp = mob ? 0 : Math.min(70, W * 0.05), pts = [[cx, 0]];
-      steps.forEach(function (stp, i) { pts.push([cx + (i % 2 ? 1 : -1) * amp, stp.offsetTop + stp.offsetHeight / 2]); });
+      stopsY = steps.map(function (stp) { return stp.offsetTop + stp.offsetHeight / 2; });
+      stopsY.forEach(function (y, i) { pts.push([cx + (i % 2 ? 1 : -1) * amp, y]); });
       pts.push([cx, Ht]);
       var d = 'M' + pts[0][0] + ' ' + pts[0][1];
       for (var i = 1; i < pts.length; i++) {
@@ -274,22 +295,31 @@
       paths.forEach(function (p) { p.setAttribute('d', d); });
       L = prog.getTotalLength();
       prog.style.strokeDasharray = L + ' ' + L;
-      stops = steps.map(function (stp) { return lenAtY(stp.offsetTop + stp.offsetHeight / 2) / L; });
+      // Kelio taškų lentelė (x pagal y; kelias visą laiką leidžiasi žemyn), kad slenkant nereikėtų klausti SVG geometrijos
+      n = Math.max(2, Math.ceil(L / 4)); xs = new Array(n + 1); ys = new Array(n + 1);
+      for (var k = 0; k <= n; k++) { var pt = prog.getPointAtLength(L * k / n); xs[k] = pt.x; ys[k] = pt.y; }
       update();
     }
     function update() {
       raf = 0;
-      if (!L) return;
-      var r = track.getBoundingClientRect();
-      var p = KL.isStatic ? 0.62 : clamp((window.innerHeight * 0.56 - r.top) / r.height, 0, 1);
-      var len = p * L, a = prog.getPointAtLength(len), b = prog.getPointAtLength(Math.min(L, len + 3));
-      var ang = (b.y === a.y && b.x === a.x) ? 0 : Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI - 90;
-      truck.style.transform = 'translate3d(' + a.x.toFixed(1) + 'px,' + a.y.toFixed(1) + 'px,0) rotate(' + ang.toFixed(1) + 'deg)';
-      prog.style.strokeDashoffset = (L - len).toFixed(1);
-      steps.forEach(function (stp, i) { stp.classList.toggle('is-done', p >= stops[i] - 0.012); });
+      if (!n) return;
+      var y = rail.getBoundingClientRect().top - track.getBoundingClientRect().top;      // bėgio vieta kelyje
+      var lo = 0, hi = n;
+      while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (ys[mid] <= y) lo = mid; else hi = mid; }
+      var span = ys[hi] - ys[lo], f = span > 0 ? clamp((y - ys[lo]) / span, 0, 1) : 0;
+      var x = xs[lo] + (xs[hi] - xs[lo]) * f;
+      var i0 = Math.max(0, lo - 2), i1 = Math.min(n, hi + 2);
+      var ang = Math.atan2(ys[i1] - ys[i0], xs[i1] - xs[i0]) * 180 / Math.PI - 90;
+      truck.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0) rotate(' + ang.toFixed(1) + 'deg)';
+      prog.style.strokeDashoffset = (L - L * (lo + f) / n).toFixed(1);
+      for (var s = 0; s < steps.length; s++) steps[s].classList.toggle('is-done', y >= stopsY[s] - 14);
     }
     function req() { if (!raf) raf = requestAnimationFrame(update); }
+    // Su Lenis atnaujinama tame pačiame kadre, kuriame pasikeičia slinkimo padėtis; kitais atvejais (klaviatūra, pirštas) per scroll įvykį
+    if (KL.lenis) KL.lenis.on('scroll', update);
     window.addEventListener('scroll', req, { passive: true });
+    // puslapio aukščiui pasikeitus (šriftai, lango plotis) kelias perskaičiuojamas
+    if ('ResizeObserver' in window) new ResizeObserver(function () { build(); }).observe(document.body);
     window.addEventListener('resize', build);
     window.addEventListener('load', build);
     KL.onReady(function () { setTimeout(build, 80); });

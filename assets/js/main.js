@@ -13,6 +13,16 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var KL = window.__kl = { motion: MOTION, isStatic: STATIC, reduced: REDUCED, fine: FINE, $: $, $$: $$, lenis: null, isReady: false };
+
+  /* Ar pelė tikrai pajudėjo. Kai turinys slenka po nejudančia pele, naršyklės siunčia pointerenter / pointerover, o „Safari“ dar ir
+     dirbtinį pointermove su tomis pačiomis ekrano koordinatėmis. Užvedimo efektai turi reaguoti tik į tikrą judesį, todėl
+     pointermove apdorojimo funkcijos pirmiausia klausia KL.realMove(). (Šis klausytojas veikia capture fazėje, t. y. anksčiau už jas.) */
+  var lastSX = null, lastSY = null, movedNow = true;
+  window.addEventListener('pointermove', function (e) {
+    movedNow = e.screenX !== lastSX || e.screenY !== lastSY;
+    lastSX = e.screenX; lastSY = e.screenY;
+  }, { capture: true, passive: true });
+  KL.realMove = function () { return movedNow; };
   if (gsap && ST) gsap.registerPlugin(ST);
   if (gsap && window.SplitText) gsap.registerPlugin(window.SplitText);
 
@@ -89,19 +99,27 @@
   };
 
   /* ---------- antraštė ---------- */
-  var hdr = $('[data-hdr]'), lastY = window.scrollY, ticking = false;
+  var hdr = $('[data-hdr]'), lastY = window.scrollY, ticking = false, megas = $$('.has-mega');
+  KL.lastScroll = 0;                                      // paskutinio slinkimo laikas (pagal jį stabdomi fono perpiešimai)
   function onScroll() {
     ticking = false;
     var y = window.scrollY;
     hdr.classList.toggle('is-solid', y > 40);
-    if (y > 700 && y > lastY + 6) hdr.classList.add('is-hidden');
+    if (y > 700 && y > lastY + 6) { hdr.classList.add('is-hidden'); megas.forEach(function (li) { li.classList.remove('is-open'); }); }
     else if (y < lastY - 6 || y <= 700) hdr.classList.remove('is-hidden');
     lastY = y;
   }
+  window.addEventListener('scroll', function () { KL.lastScroll = performance.now(); }, { passive: true });
   if (hdr) {
     window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
     onScroll();
   }
+  // Mega meniu atsidaro tik pelei tikrai pajudėjus virš punkto (pointermove), o ne nuo :hover:
+  // kitaip, antraštei grįžtant į ekraną po nejudančia pele, meniu iššoktų pats.
+  megas.forEach(function (li) {
+    li.addEventListener('pointermove', function (e) { if (e.pointerType !== 'touch' && KL.realMove()) li.classList.add('is-open'); });
+    li.addEventListener('pointerleave', function () { li.classList.remove('is-open'); });
+  });
   var lang = $('[data-lang]');
   if (lang) {
     var lb = $('.lang__btn', lang);
@@ -184,6 +202,7 @@
     if (e.key !== 'Escape') return;
     if (qdOpen) KL.quote(false); else if (menuOpen) menu(false);
     if (lang) lang.classList.remove('is-open');
+    megas.forEach(function (li) { li.classList.remove('is-open'); });
   });
 
   /* ---------- formos (demo: niekur nesiunčia) ---------- */
@@ -206,15 +225,34 @@
 
   /* ---------- atsiradimai ---------- */
   var rvEls = $$('[data-rv],[data-in]');
+  var mainEl = $('#main'), ftrEl = $('[data-ftr]');
   if (STATIC || REDUCED || !('IntersectionObserver' in window)) rvEls.forEach(function (el) { el.classList.add('is-in'); });
   else {
     var rvo = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); rvo.unobserve(e.target); } });
     }, { threshold: 0, rootMargin: '0px 0px -9% 0px' });
-    KL.onReady(function () { rvEls.forEach(function (el) { rvo.observe(el); }); });
+    // Poraštė prilipusi už turinio ir geometriškai visada yra ekrane, todėl jos elementai atsiranda ne pagal savo padėtį,
+    // o tada, kai turinio pabaiga pakyla ir poraštė iš tikrųjų atsidengia.
+    var ftrRv = ftrEl ? rvEls.filter(function (el) { return ftrEl.contains(el); }) : [];
+    var ftrGate = !!(ftrRv.length && mainEl);
+    var showFtr = function () { ftrRv.forEach(function (el) { el.classList.add('is-in'); }); };
+    // Tikrinama pagal slinkimo padėtį, o ne IntersectionObserver: peršokus tiesiai į puslapio galą (End klavišas, slinkties juosta)
+    // stebimas taškas ekrano gali ir nekirsti, o padėties tikrinimas suveikia visada.
+    if (ftrGate) KL.onReady(function () {
+      if (MOTION) ST.create({ trigger: mainEl, start: 'bottom 88%', once: true, onEnter: showFtr });
+      else {
+        var chk = function () {
+          if (mainEl.getBoundingClientRect().bottom > window.innerHeight * 0.88) return;
+          showFtr(); window.removeEventListener('scroll', chk);
+        };
+        window.addEventListener('scroll', chk, { passive: true }); chk();
+      }
+    });
+    KL.onReady(function () { rvEls.forEach(function (el) { if (!ftrGate || ftrRv.indexOf(el) < 0) rvo.observe(el); }); });
   }
 
   /* ---------- antraštės eilutėmis ---------- */
+  var splits = [];
   function splitAll() {
     var els = $$('[data-split]');
     if (!MOTION || !window.SplitText) { els.forEach(function (el) { el.classList.add('is-split'); }); return; }
@@ -222,11 +260,27 @@
       try {
         var sp = new window.SplitText(el, { type: 'lines', mask: 'lines', linesClass: 'ln' });
         el.classList.add('is-split');
-        gsap.from(sp.lines, { yPercent: 112, duration: 1.2, ease: 'power4.out', stagger: 0.09, delay: parseFloat(el.dataset.delay) || 0,
-          scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+        var inFtr = ftrEl && mainEl && ftrEl.contains(el);     // poraštės antraštė: pagal turinio pabaigą, ne pagal savo padėtį
+        // force3D: eilutė ir po animacijos lieka savo sluoksnyje. Kitaip, animacijai pasibaigus, naršyklė ją perkelia
+        // į tėvo sluoksnį ir tą akimirką eilutė gali vienam kadrui dingti.
+        var tw = gsap.from(sp.lines, { force3D: true, yPercent: 112, duration: 1.2, ease: 'power4.out', stagger: 0.09, delay: parseFloat(el.dataset.delay) || 0,
+          scrollTrigger: inFtr ? { trigger: mainEl, start: 'bottom 88%', once: true } : { trigger: el, start: 'top 92%', once: true } });
+        splits.push({ sp: sp, tw: tw });
       } catch (err) { el.classList.add('is-split'); }
     });
   }
+  // Suskaidytos eilutės pačios nepersilaužia. Todėl pasikeitus lango pločiui antraštėms grąžinamas paprastas tekstas
+  // (tik tada, o ne iškart po animacijos: DOM pakeitimas vidury slinkimo galėjo trumpam paslėpti antraštę).
+  var splitW = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (!splits.length || window.innerWidth === splitW) return;
+    splitW = window.innerWidth;
+    splits.forEach(function (s) {
+      try { if (s.tw.scrollTrigger) s.tw.scrollTrigger.kill(); s.tw.kill(); s.sp.revert(); } catch (err) {}
+    });
+    splits = [];
+    if (ST) ST.refresh();
+  });
   var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
   var fontsOrTimeout = Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1800); })]);
   KL.onReady(function () { fontsOrTimeout.then(function () { splitAll(); if (ST) ST.refresh(); }); });
@@ -252,8 +306,17 @@
     KL.onReady(function () { counters.forEach(function (el) { co.observe(el); }); });
   }
 
-  /* ---------- video: kraunami tik priartėjus, groja tik matomi ---------- */
+  /* ---------- video: pradedami krauti iš anksto (maždaug per ekraną iki jų), groja tik matomi ---------- */
   if (!STATIC && !REDUCED && 'IntersectionObserver' in window) {
+    var vids = $$('video[data-autoplay]');
+    var vload = new IntersectionObserver(function (es) {            // ankstyvas krovimas, kad paleidimas nestabdytų slinkimo
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var v = e.target;
+        if (!v.getAttribute('src')) { v.preload = 'auto'; v.src = v.dataset.src; }
+        vload.unobserve(v);
+      });
+    }, { rootMargin: '1100px 0px' });
     var vio = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
@@ -262,8 +325,8 @@
           var p = v.play(); if (p && p.catch) p.catch(noop);
         } else if (!v.paused) v.pause();
       });
-    }, { rootMargin: '160px 0px' });
-    $$('video[data-autoplay]').forEach(function (v) { vio.observe(v); });
+    }, { rootMargin: '120px 0px' });
+    vids.forEach(function (v) { vload.observe(v); vio.observe(v); });
   }
 
   /* ---------- paralaksas ---------- */
@@ -286,6 +349,7 @@
     $$('[data-tilt]').forEach(function (el) {
       var max = parseFloat(el.dataset.tilt) || 6;
       el.addEventListener('pointermove', function (e) {
+        if (!KL.realMove()) return;
         var r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
         el.style.setProperty('--ry', ((px - 0.5) * 2 * max).toFixed(2) + 'deg');
         el.style.setProperty('--rx', ((0.5 - py) * 2 * max).toFixed(2) + 'deg');
@@ -300,6 +364,7 @@
     $$('[data-magnet]').forEach(function (el) {
       var xTo = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3.out' }), yTo = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3.out' });
       el.addEventListener('pointermove', function (e) {
+        if (!KL.realMove()) return;
         var r = el.getBoundingClientRect();
         xTo((e.clientX - r.left - r.width / 2) * 0.22); yTo((e.clientY - r.top - r.height / 2) * 0.3);
       });
@@ -311,38 +376,43 @@
   var cur = $('[data-cur]');
   if (cur && MOTION && FINE) {
     var cx = -100, cy = -100, tx = -100, ty = -100, curLbl = $('span', cur);
+    // Būsena pagal elementą po pele. grow = ar galima padidinti burbulą su užrašu (tik pelei tikrai pajudėjus).
+    var syncCur = function (target, grow) {
+      var c = target && target.closest ? target.closest('[data-cursor]') : null, lbl = c ? c.getAttribute('data-cursor') : '';
+      if (c && grow) { curLbl.textContent = lbl; cur.classList.add('is-big'); }
+      else if (!c || curLbl.textContent !== lbl) cur.classList.remove('is-big');
+      cur.classList.toggle('is-hide', !c && !!(target && target.closest && target.closest('a,button,input,textarea,select,label,[data-pan]')));
+    };
     window.addEventListener('pointermove', function (e) {
       tx = e.clientX; ty = e.clientY;
-      var c = e.target.closest ? e.target.closest('[data-cursor]') : null;
       cur.classList.add('is-on');
-      cur.classList.toggle('is-big', !!c);
-      if (c) curLbl.textContent = c.getAttribute('data-cursor');
-      cur.classList.toggle('is-hide', !c && !!(e.target.closest && e.target.closest('a,button,input,textarea,select,label,[data-pan]')));
+      syncCur(e.target, KL.realMove());
     }, { passive: true });
+    // Slenkant po nejudančia pele pointermove neateina, bet pointerover ateina. Pagal jį burbulas tik sumažinamas (niekada nedidinamas):
+    // kitaip didelis raudonas burbulas su užrašu liktų kaboti virš kito turinio arba iššokinėtų pro šalį slenkant kiekvienam video.
+    document.addEventListener('pointerover', function (e) { syncCur(e.target, false); }, { passive: true });
     document.addEventListener('pointerleave', function () { cur.classList.remove('is-on'); });
     gsap.ticker.add(function () {
+      if (Math.abs(tx - cx) < 0.05 && Math.abs(ty - cy) < 0.05) return;
       cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
       cur.style.setProperty('--x', cx.toFixed(1) + 'px'); cur.style.setProperty('--y', cy.toFixed(1) + 'px');
     });
   }
 
-  /* ---------- kinetinė juosta: greitis, pasvirimas ir raidžių plotis pagal slinkimą ---------- */
+  /* ---------- kinetinė juosta: greitis ir lengvas pasvirimas pagal slinkimą (tik transform, be išdėstymo perskaičiavimo) ---------- */
   $$('[data-kin]').forEach(function (kin) {
     if (!MOTION) return;
-    var p = 0, wd = 112, sk = 0, dir = 1, vis = false, lastWd = 0;
+    var track = $('.kin__track', kin), p = 0, sk = 0, dir = 1, vis = false;
+    if (!track) return;
     new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }, { rootMargin: '100px 0px' }).observe(kin);
     gsap.ticker.add(function (t, dt) {
       if (!vis) return;
       var v = lenis ? (lenis.velocity || 0) : 0, av = Math.min(Math.abs(v), 70);
       if (av > 0.4) dir = v > 0 ? 1 : -1;
-      p += (0.00004 + av * 0.00003) * dt * dir;
+      p += (0.00004 + av * 0.00003) * Math.min(dt, 50) * dir;
       p = ((p % 1) + 1) % 1;
-      wd += ((112 - av * 0.9) - wd) * 0.1;
-      sk += ((-v * 0.3) - sk) * 0.1;
-      sk = Math.max(-16, Math.min(16, sk));
-      kin.style.setProperty('--p', p.toFixed(5));
-      kin.style.setProperty('--sk', sk.toFixed(2) + 'deg');
-      if (Math.abs(wd - lastWd) > 0.25) { lastWd = wd; kin.style.setProperty('--wd', Math.max(62, wd).toFixed(1)); }
+      sk += (Math.max(-8, Math.min(8, -v * 0.16)) - sk) * 0.08;
+      track.style.transform = 'translate3d(' + (-p * 50).toFixed(4) + '%,0,0) skewX(' + sk.toFixed(2) + 'deg)';
     });
   });
 

@@ -12,7 +12,7 @@ Sablonu zymes:
   {{icons}}            ikonu rinkinys, i ji patenka tik puslapyje panaudotos ikonos
 Tik standartine Python biblioteka.
 """
-import html, json, pathlib, re
+import hashlib, html, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / 'src'
@@ -140,6 +140,17 @@ def sprite(page_html):
             + ''.join(syms[n] for n in sorted(used)) + '</svg>')
 
 
+def versioned(page_html):
+    """Prie CSS ir JS nuorodu prideda ?v=<turinio santrauka>, kad po atnaujinimo narsykle neimtu senu failu is podelio
+    (GitHub Pages failus leidzia laikyti 10 min., todel be to naujas HTML galetu gauti sena JS ar CSS)."""
+    def add(m):
+        f = ROOT / m.group(2)
+        if not f.exists():
+            return m.group(0)
+        return f'{m.group(1)}="{m.group(2)}?v={hashlib.md5(f.read_bytes()).hexdigest()[:8]}"'
+    return re.sub(r'(href|src)="(assets/(?:css|js)/[^"?#]+\.(?:css|js))"', add, page_html)
+
+
 def build():
     for p in sorted((SRC / 'pages').glob('*.html')):
         raw = p.read_text('utf-8')
@@ -152,6 +163,7 @@ def build():
             meta.setdefault(k, '')
         out = render(partial('layout').replace('{{content}}', body), meta)
         out = out.replace('{{icons}}', sprite(out))
+        out = versioned(out)
         left = re.findall(r'\{\{[^}]+\}\}', out)
         if left:
             raise SystemExit(f'{p.name}: neisspresta {sorted(set(left))[:6]}')

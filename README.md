@@ -55,17 +55,28 @@ Autovežių (automobilių pervežimo) veikla, kurią mini keli seni katalogai, n
 - **Įžanga ir perėjimai:** logotipo įžanga su eigos juosta (tik pirmą kartą per sesiją), tarp puslapių pakyla tamsiai mėlyna užuolaida.
 - **Hero:** video, antraštė iškyla eilutėmis, sluoksniai juda pagal pelę (video, tekstas ir stiklo kortelė skirtingu greičiu, kortelė pasvyra 3D), slenkant video priartėja ir lėčiau nuslenka, o turinio lapas užslenka ant viršaus. Video stabdymo mygtukas.
 - **Skaičiai:** prasisuka nuo nulio.
-- **Kinetinė juosta:** žodžiai bėga, o slenkant greitėja, pasvyra ir raidės susiaurėja (kintamo šrifto pločio ašis).
+- **Kinetinė juosta:** žodžiai bėga, o slenkant greitėja ir lengvai pasvyra (keičiamas tik `transform`, išdėstymas neperskaičiuojamas).
 - **Apie:** žodžiai paryškėja slenkant, video ir nuotrauka juda skirtingu greičiu, besisukantis ženklas „Kelyje nuo 2005“.
 - **Paslaugos:** keturi skydai, užvedus skydas išsiplečia ir paleidžia savo video.
 - **Maršrutai:** taškinis Europos žemėlapis (canvas, 3,7 tūkst. taškų iš „Natural Earth“ duomenų) atsiskleidžia banga nuo Vilniaus, taškai reaguoja į pelę, užvedus ant šalies ji paryškėja; maršrutais teka brūkšniai ir juda taškai.
 - **Autoparkas:** nupieštas vilkikas įvažiuoja slenkant, sukasi ratai, nusipiešia matmenų linijos; skirtukai keičia puspriekabę (tentinė, šaldytuvas, konteinerinė) ir perskaičiuoja parametrus.
 - **Skaičių plytelės:** 3D pakreipimas su blizgesiu, auganti stulpelinė diagrama, darbuotojų kreivė, video plytelė.
-- **Procesas:** kelias vingiuoja per sekciją, vilkikas važiuoja juo pagal slinkimą ir „uždega“ žingsnius.
+- **Procesas:** kelias vingiuoja per sekciją, vilkikas važiuoja juo pagal slinkimą ir „uždega“ žingsnius. Vilkiką ekrane laiko `position: sticky` bėgis, JS nustato tik poslinkį į šoną ir pasukimą, todėl jis nedreba slenkant klaviatūra ar pirštu.
 - **Karjera, užklausa:** video juostos su paralaksu, blokai priartėja slenkant, darbo skelbimo kortelė pasvyra.
 - **Poraštė:** atsidengia iš po turinio, keliu važiuoja vilkikai, didelis žodinis ženklas iškyla paraidžiui.
 - **Bendri:** permatoma antraštė virsta plaukiojančia stiklo juosta ir slepiasi slenkant žemyn, mega meniu su nuotraukomis, užklausos skydelis iš dešinės (greita forma perduoda duomenis), magnetiniai mygtukai, žymeklis su užrašu ant video, pranešimai.
-- Video kraunami tik priartėjus ir groja tik matomi. Telefone skydai virsta akordeonu, kelias eina kairėje, žemėlapyje lieka pagrindiniai užrašai.
+- Video pradedami krauti maždaug per ekraną iki jų ir groja tik matomi; plakatas yra tikslus pirmasis kadras. Telefone skydai virsta akordeonu, kelias eina kairėje, žemėlapyje lieka pagrindiniai užrašai.
+
+### Taisyklės, kad slenkant niekas netrūkčiotų
+
+Šios taisyklės atsirado pataisius slinkimo trikdžius; perkeliant į XStore jų verta laikytis ir child temos kode.
+
+- **Stiklo elementai (`backdrop-filter`) negali turėti tėvo su `opacity` < 1, `filter`, `clip-path` ar `mask`:** toks tėvas atkerta juos nuo fono ir suliejimas staiga dingsta. Todėl hero turinys išblunka atskirais elementais, o ne visu konteineriu.
+- **Užvedimo efektai, kuriuos valdo JS, reaguoja tik į tikrą pelės judesį** (`pointermove` ir `KL.realMove()`), ne į `pointerenter` ar `:hover`: slenkant puslapį po nejudančia pele naršyklė vis tiek siunčia „užvedimo“ įvykius, ir skydai, meniu ar žemėlapis keistųsi patys.
+- **Elementas, kurio `transform` kas kadrą rašo GSAP, negali turėti CSS `transition` ant `transform`.**
+- **Antraščių eilučių kaukės neturi `padding` ir neigiamų paraščių** (kirpimo riba praplečiama per `overflow-clip-margin`): kitaip suskaidyta antraštė būna kito aukščio ir turinys žemiau šokteli. Eilutės po animacijos lieka savo sluoksnyje (`force3D`), o paprastas tekstas grąžinamas tik pasikeitus lango pločiui.
+- **Hero įžanga daroma per CSS `transition`, ne per `@keyframes` animaciją**, o stiklo elementų vienu metu ekrane kuo mažiau: bandymuose su animacija ir papildomais `backdrop-filter` sluoksniais antraštė retkarčiais mirktelėdavo.
+- **Kas turi stovėti ekrane vietoje, laikoma per `position: sticky`, ne perstumiama skriptu prieš slinkimą.**
 
 ## Failai
 
@@ -77,7 +88,7 @@ src/partials/*.html      layout, header (mega meniu), footer, perdangos, formos,
 src/partials/truck.svg   vilkiko brėžinys su trimis puspriekabėmis
 src/data/site.json       kontaktai, paslaugos, pajamų ir darbuotojų eilutės diagramoms
 src/data/media.json      Pexels nuotraukų ir video sąrašas su autoriais
-tools/media.py           medijos paruošimas: photos | videos | credits
+tools/media.py           medijos paruošimas: photos | videos | posters | credits
 tools/map.py             taškinio žemėlapio generavimas -> assets/js/mapdata.js
 tools/brand.py           logotipas kreivėmis ir ikonų rinkinys (Phosphor, MIT)
 assets/css/style.css     dizaino sistema
@@ -99,7 +110,7 @@ Kiekviena sekcija šablonuose turi komentarą su XStore arba Elementor atitikmen
 | Kalbos LT / EN / DE / RU | WPML arba Polylang | Demo tik lietuviškai |
 | Hero su video ir greita užklausa | Elementor sekcija su fono video, Heading, Contact Form 7 | Gylis pagal pelę ir paralaksas: child temos GSAP |
 | Skaičiai | Animated Counter / Elementor Counter | Savaime |
-| Kinetinė juosta | XStore Marquee (Scrolling Text) | Pločio ir pasvirimo reakcija į slinkimą: child temos JS |
+| Kinetinė juosta | XStore Marquee (Scrolling Text) | Greičio ir pasvirimo reakcija į slinkimą: child temos JS |
 | Apie įmonę | Text Editor, Image, Video su Motion Effects | Žodžių paryškinimas slenkant: child temos GSAP |
 | Paslaugų skydai | Banner arba Image Accordion tipo blokas | Išsiplėtimas ir video paleidimas: child temos CSS ir JS |
 | Maršrutų žemėlapis | nėra standartinio | Child temos modulis (canvas + SVG). Paprastesnis variantas: XStore Hotspot ant žemėlapio paveikslėlio |
